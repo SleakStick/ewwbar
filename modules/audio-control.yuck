@@ -1,0 +1,29 @@
+(defwidget audio-control_mainWidget[]
+  (box :orientation "horizontal"
+       :space-evenly false
+       (audio-control_inputWidget)
+       (audio-control_outputWidget)))
+
+(defwidget audio-control_inputWidget[]
+  (box :orientation "vertical"
+       :class "audio-control_inputWidget"
+       (scale :draw-value true
+        :orientation "vertical"
+        :flipped true
+        :max 101 :min 0
+        :onchange "pactl set-source-volume @DEFAULT_SOURCE@ {}%"
+        :value 1)
+       (combo-box-text :items '["A", "B"]'
+                       :onchange "echo {} > ./resources/debug.log")))
+
+(defwidget audio-control_outputWidget[]
+  (box :orientation "vertical"
+       :class "audio-control_outputWidget"
+        (scale :draw-value true
+        :orientation "vertical"
+        :flipped true
+        :max 101 :min 0
+        :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        :value media-player_currentVolume)
+       (combo-box-text :items audio-control_info.sinks
+                       :onchange "./scripts/audio-control.sh sink_to {} > ./resources/debug.log")))

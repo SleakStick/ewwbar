@@ -1,0 +1,23 @@
+(deflisten media-player_artPath :initial "/tmp/eww/placeholder.jpg"
+  "./scripts/image-fetcher.sh")
+(defpoll media-player_currentVolume :interval "1s"
+  "pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '[0-9]+(?=%)' | head -n 1")
+(defpoll media-player_currentTitle :interval "1s"
+  "playerctl metadata --format '{{title}} - {{artist}}'")
+
+(deflisten bar_workspaces :initial '["err"]'
+  "stdbuf -oL ./scripts/workspaces-fetcher.sh")
+(defpoll bar_batteryInfo :interval "10s"
+  "./scripts/battery-info.sh")
+(defvar bar_power-profiles-order '[{"power-saver":"balanced", "balanced":"performance", "performance":"power-saver"}]')
+
+(defpoll time :interval "1s"
+  'date +%H:%M:%S')
+
+(deflisten audio-control_info:initial ''
+  "./scripts/audio-control.sh ")
+(defpoll audio-control_current-sink :interval "1s"
+  "pactl list sinks | grep -B5 $(pactl get-default-sink) | grep description | cut -c 24-")
+
+(defvar backgroundColor "#33adcc")
+(defvar accentColor "#33adcc")

@@ -1,0 +1,53 @@
+(defwidget bar_mainWidget[]
+  (box :orientation "horizontal"
+       :class "bar_mainBox"
+       (bar_leftIsland)
+       (bar_centerIsland)
+       (bar_rightIsland)))
+
+
+(defwidget bar_leftIsland[]
+  (box :orientation "horizontal"
+       :class "bar_leftIsland"
+       (for workspace in bar_workspaces
+            (button :class "bar_workspaceButtons" :onclick "hyprctl dispatch workspace ${workspace.id}" "${workspace.symb}"))))
+
+
+(defwidget bar_centerIsland[]
+  (box :orientation "horizontal"
+       :class "bar_centerIsland"
+       (bar_batteryModule)
+       (bar_clockModule)
+       (bar_infoCenterButton)))
+(defwidget bar_batteryModule[]
+  (box :orientation "horizontal"
+       :class "bar_batteryModule"
+       (label :text "${bar_batteryInfo[0].percentage}%  ${bar_batteryInfo[0].battery_percentage_icon} ")
+       (button :onclick "./scripts/power-profiles-switcher.sh > /tmp/debug.log 2>&1" :timeout "1000ms"
+               (label :text "${bar_batteryInfo[0].power_profile_icon}"))))
+(defwidget bar_clockModule[]
+  (box :orientation "horizontal"
+       :class "bar_clockModule"
+       (label :text "${time}")))
+(defwidget bar_infoCenterButton[]
+  (box :orientation "horizontal"
+       :class "bar_infoCenterButton"
+       (button :onclick "eww open infoCenter"
+               (label :text ""))))
+
+
+(defwidget bar_rightIsland[]
+  (box :orientation "horizontal"
+       (bar_mediaPlayer)
+       (bar_audioControl)))
+(defwidget bar_mediaPlayer[]
+  (box :orientation "horizontal"
+       :class "bar_mediaPlayerButton"
+       (button :onclick "eww open --toggle media-player_Window"
+               (label :text ""))))
+(defwidget bar_audioControl[]
+  (box :orientation "horizontal"
+       :class "bar_audioControlButton"
+       (button :onclick "eww open --toggle audio-control_Window")))
+
+

@@ -1,0 +1,40 @@
+(defwidget media-player_mainWidget[]
+  (box :orientation "vertical"
+       :space-evenly false
+       :valign "center"
+       :halign "center"
+       :class "media-player_mainBox"
+       (media-player_titleWidget)
+       (media-player_imageWidget)
+       (media-player_controlWidget)))
+
+(defwidget media-player_titleWidget[]
+  (box :class "media-player_titleBox"
+       :halign "center"
+       media-player_currentTitle))
+
+(defwidget media-player_imageWidget[]
+  (box :orientation "h"
+       :class "media-player_imageBox"
+       (image :path media-player_artPath
+        :preserve-aspect-ratio false
+        :image-width 200
+        :image-height 200)
+        (scale :draw-value true
+        :orientation "vertical"
+        :flipped true
+        :max 101 :min 0
+        :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        :value media-player_currentVolume)))
+
+(defwidget media-player_controlWidget[]
+  (box :orientation "horizontal"
+       :halign "center"
+       :class "media-player_controlBox"
+       (button :onclick "playerctl previous"
+        "󰒮")
+       (button :onclick "playerctl play-pause"
+        "")
+       (button :onclick "playerctl next"
+        "󰒭")))
+

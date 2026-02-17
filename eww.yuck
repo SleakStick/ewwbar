@@ -1,0 +1,43 @@
+(include "./variables.yuck")
+(include "./modules/media-player.yuck")
+(include "./modules/bar.yuck")
+(include "./modules/audio-control.yuck")
+
+(defwindow media-player_Window
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "25%"
+                               :height "20%"
+                               :anchor "top right")
+           :stacking "fg"
+           :windowtype "normal"
+           :wm-ignore true
+           (media-player_mainWidget))
+
+(defwindow bar_Window
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "1%"
+                               :width "98%"
+                               :height "3%"
+                               :anchor "top center")
+           :stacking "fg"
+           :windowtype "dock"
+           :exclusive true
+           :focusable false
+           :wm-ignore false
+           (bar_mainWidget))
+
+(defwindow audio-control_Window
+          :monitor 0
+          :geometry (geometry :x "0%"
+                              :y "0%"
+                              :width "25%"
+                              :height "20%"
+                              :anchor "top right")
+          :stacking "fg"
+          :wm-ignore true
+          :windowtype "normal"
+          (audio-control_mainWidget))
+
