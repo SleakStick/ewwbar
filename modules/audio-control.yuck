@@ -1,21 +1,10 @@
 (defwidget audio-control_mainWidget[]
   (box :orientation "horizontal"
-       :space-evenly false
-       (audio-control_inputWidget)
-       (audio-control_outputWidget)))
+       :space-evenly true
+       (audio-control_outputWidget)
+       (audio-control_appsWidget)))
 
-(defwidget audio-control_inputWidget[]
-  (box :orientation "vertical"
-       :class "audio-control_inputWidget"
-       (scale :draw-value true
-        :orientation "vertical"
-        :flipped true
-        :max 101 :min 0
-        :onchange "pactl set-source-volume @DEFAULT_SOURCE@ {}%"
-        :value 1)
-       (combo-box-text :items '["A", "B"]'
-                       :onchange "echo {} > ./resources/debug.log")))
-
+;;TODO; Make combo-box-text keep the current selection as label
 (defwidget audio-control_outputWidget[]
   (box :orientation "vertical"
        :class "audio-control_outputWidget"
@@ -25,5 +14,12 @@
         :max 101 :min 0
         :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
         :value media-player_currentVolume)
-       (combo-box-text :items audio-control_info.sinks
+       (combo-box-text :items {audio-control_info.sinks} :timeout "1000ms"
                        :onchange "./scripts/audio-control.sh sink_to {} > ./resources/debug.log")))
+
+;;'TODO; add names/symbols for sliders'
+(defwidget audio-control_appsWidget[]
+  (box :orientation "horizontal"
+       :class "audio-control_appsWidget"
+       (for app in {audio-control_info.apps}
+            (scale :draw-value true :orientation "vertical" :flipped true :max 101 :min 0 :value "${app.volume}" :onchange "./scripts/audio-control.sh app_audio ${app.name} {}"))))

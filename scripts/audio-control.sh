@@ -1,11 +1,7 @@
 #!/bin/bash
 
-#pactl list sinks | grep -C5 "Sink #{device}" | grep "Description: " | cut -c 15- desc from device
-
 declare -a SINK_BANWORDS=("Output") #ignore sinks with these words, (used to avoid duplicate sinks)
 declare -A SINK_RENAMES=( ["Raptor Lake-P/U/H cAVS Speaker"]="Laptop Speakers" ) #rename the sink (key) to the value
-declare -a SOURCE_BANWORDS=("Output" "Monitor" "Speaker") #Same for sources 
-declare -A SOURCE_RENAMES=( ["Raptor Lake-P/U/H cAVS Stereo Microphone"]="Laptop Stereo Microphone" ["Raptor Lake-P/U/H cAVS Digital Microphone"]="Laptop Digital Microphone" )
 
 #there is certainly a better way to do this but fuck it
 DEFAULT_SINK_NAME=$(pactl get-default-sink)
@@ -17,28 +13,16 @@ if [[ -n "$ACTIVE_SINK" && "$ACTIVE_SINK" != "null" ]]; then
 fi
 ACTIVE_SINK="${ACTIVE_SINK//\"/}"
 
-DEFAULT_SOURCE_NAME=$(pactl get-default-source)
-ACTIVE_SOURCE=$(echo "$SOURCES_RAW_JSON" | jq -r --arg def "$DEFAULT_SOURCE_NAME" '.[] | select(.name == $def) | .description')
-if [[ -n "$ACTIVE_SOURCE" && "$ACTIVE_SOURCE" != "null" ]]; then
-    if [[ ${SOURCE_RENAMES["$ACTIVE_SOURCE"]+isset} ]]; then
-        ACTIVE_SOURCE="${SOURCE_RENAMES["$ACTIVE_SOURCE"]}"
-    fi
-fi
-ACTIVE_SOURCE="${ACTIVE_SOURCE//\"/}"
-
-
 print_sinks () {
 SINKS_RAW_JSON="$(pactl --format="json" list sinks)"
 SINKS_RAW_JSON_COUNT="$(echo $SINKS_RAW_JSON | jq -r 'length')"
 declare -a SINK_DESCRIPTIONS=()
-declare -a SINK_IDS=()
 
 i=0
 index=0
 
 while [ $i -lt $SINKS_RAW_JSON_COUNT ]; do 
   DESC=$(echo $SINKS_RAW_JSON | jq -r ".[$i].description")
-  ID=$(echo $SINKS_RAW_JSON | jq -r ".[$i].index")
 
   valid_sink=true
   j=0
@@ -54,7 +38,6 @@ while [ $i -lt $SINKS_RAW_JSON_COUNT ]; do
   
   if $valid_sink; then
     SINK_DESCRIPTIONS[$index]="$DESC"
-    SINK_IDS[$index]="$ID"
     ((index++))
   fi
   ((i++))
@@ -71,55 +54,28 @@ done
 SINK_NAMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${SINK_NAMES[@]}")
 }
 
-print_sources () {
-SOURCES_RAW_JSON="$(pactl --format="json" list sources)"
-SOURCES_RAW_JSON_COUNT="$(echo $SOURCES_RAW_JSON | jq -r 'length')"
-declare -a SOURCE_DESCRIPTIONS=()
-declare -a SOURCE_IDS=()
-
-i=0
-index=0
-
-while [ $i -lt $SOURCES_RAW_JSON_COUNT ]; do 
-  DESC=$(echo $SOURCES_RAW_JSON | jq -r ".[$i].description")
-  ID=$(echo $SOURCES_RAW_JSON | jq -r ".[$i].index")
-
-  valid_sink=true
-  j=0
-  while [ $j -lt ${#SOURCE_BANWORDS[@]} ]; do
-    if [[ "$DESC" == *"${SOURCE_BANWORDS[$j]}"* ]]; then
-      valid_sink=false
-    fi
-    ((j++))
+print_apps () {
+  APPS_RAW_JSON="$(pactl --format=json list sink-inputs )"
+  APPS_COUNT=$(echo $APPS_RAW_JSON | jq -r 'length')
+ 
+  i=0
+  declare -a APPS_NAMES
+  declare -a APPS_VOLUMES
+  while [ $i -lt $APPS_COUNT ]; do
+    DESC=$(echo $APPS_RAW_JSON | jq ".[$i] | .properties[\"application.name\"]")
+    VOLUME=$(echo $APPS_RAW_JSON | jq -r ".[$i].volume.\"front-left\".value_percent" | cut -d '%' -f1)
+    APPS_VOLUMES[$i]=$VOLUME
+    APPS_NAMES[$i]=$DESC
+    ((i++))
   done
-  if [[ -n "${SOURCE_RENAMES[$DESC]}" ]]; then
-    DESC="${SOURCE_RENAMES[$DESC]}"
-  fi
-  
-  if $valid_sink; then
-    SOURCE_DESCRIPTIONS[$index]="$DESC"
-    SOURCE_IDS[$index]="$ID"
-    ((index++))
-  fi
-  ((i++))
-done
-
-#reorder sinks to have the correct one on top and avoid annoying :onchange calls upon opening window
-declare -a SOURCE_NAMES=("$ACTIVE_SOURCE")
-for item in "${SOURCE_DESCRIPTIONS[@]}"; do
-  if [[ "$ACTIVE_SOURCE" != "$item" ]]; then
-    SOURCE_NAMES+=("$item")
-  fi
-done
-
-SOURCE_NAMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${SOURCE_NAMES[@]}")
+  APPS_NAMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${APPS_NAMES[@]}")
+  APPS_VOLUMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${APPS_VOLUMES[@]}")
+  APPS_INFO_JSON=$(jq -n --argjson a "$APPS_VOLUMES_JSON" --argjson b "$APPS_NAMES_JSON" 'range(0; $a | length) as $i | { "volume": $a[$i], "name": $b[$i] } | . ' | jq -s '.')
 }
-
 
 # change sink to whatever was chosen in the combo-box-text
 change_sink () {
-
-  desc=$2
+  desc="$2"
   if [[ "$ACTIVE_SINK" == "$desc" ]]; then
     exit 0
   fi
@@ -129,23 +85,31 @@ change_sink () {
         break
     fi
   done
-  SINK_ID=$(pactl list sinks| grep -B3 "Description: $desc"|grep Sink|cut -c 7-)
+  SINK_ID=$(pactl --format="json" list sinks| jq -r --arg desc "$desc" '.[] | select(.description == $desc) | .index')
   pactl set-default-sink $SINK_ID
+}
+
+change_app_audio () {
+  app_name="$2"
+  volume="$3%"
+  app_id=$(pactl --format=json list sink-inputs | jq -r --arg app_name "$app_name" '.[] | select(.properties["application.name"]== $app_name) | .index')
+  pactl set-sink-input-volume $app_id $volume
 }
 
 
 loop=true
 if [[ "$1" == "sink_to" ]]; then
-  change_sink $1 $2
+  change_sink $1 "$2"
   loop=false
 fi
-
+if [[ "$1" == "app_audio" ]]; then
+  change_app_audio "$1" "$2" $3 
+  loop=false
+fi
 while [ $loop == true ]; do
   print_sinks
-  print_sources
-  AUDIO_INFO=$(jq -n --argjson a "$SINK_NAMES_JSON" --argjson b "$SOURCE_NAMES_JSON" '{sinks: $a, sources: $b}')
+  print_apps
+  AUDIO_INFO=$(jq -n --argjson a "$SINK_NAMES_JSON" --argjson b "$APPS_INFO_JSON" '{sinks: $a, apps: $b}')
   echo $AUDIO_INFO
   sleep 2
 done
-
-
