@@ -1,3 +1,4 @@
+;;TODO; have the options for multiple active players and make pause/play button change symbol
 (defwidget media-player_mainWidget[]
   (box :orientation "vertical"
        :space-evenly false
@@ -8,6 +9,7 @@
        (media-player_imageWidget)
        (media-player_controlWidget)))
 
+
 (defwidget media-player_titleWidget[]
   (box :class "media-player_titleBox"
        :halign "center"
@@ -17,7 +19,6 @@
   (box :orientation "h"
        :class "media-player_imageBox"
        (image :path media-player_artPath
-        :preserve-aspect-ratio false
         :image-width 200
         :image-height 200)
         (scale :draw-value true
@@ -25,6 +26,7 @@
         :flipped true
         :max 101 :min 0
         :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+        :timeout "1000ms"
         :value media-player_currentVolume)))
 
 (defwidget media-player_controlWidget[]
