@@ -1,7 +1,7 @@
-(deflisten media-player_artPath :initial "/tmp/eww/placeholder.jpg"
+(deflisten media-player_artPath :initial "./resources/placeholder.jpg"
   "./scripts/image-fetcher.sh")
 (defpoll media-player_currentVolume :interval "1s"
-  "pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '[0-9]+(?=%)' | head -n 1")
+"pactl --format='json' get-sink-volume @DEFAULT_SINK@ | jq -r '.volume[\"front-left\"].value_percent'| cut -d '%' -f1")
 (defpoll media-player_currentTitle :interval "1s"
   "playerctl metadata --format '{{title}} - {{artist}}'")
 
@@ -14,8 +14,8 @@
 (defpoll time :interval "1s"
   'date +%H:%M:%S')
 
-(deflisten audio-control_info:initial ''
-  "./scripts/audio-control.sh ")
+(deflisten audio-control_info :initial '{"sinks": [], "sources": []}'
+  "./scripts/audio-control.sh")
 (defpoll audio-control_current-sink :interval "1s"
   "pactl list sinks | grep -B5 $(pactl get-default-sink) | grep description | cut -c 24-")
 
