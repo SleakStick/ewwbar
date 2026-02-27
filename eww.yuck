@@ -41,3 +41,14 @@
           :windowtype "normal"
           (audio-control_mainWidget))
 
+(defwindow network-control_Window
+          :monitor 0
+          :geometry (geometry :x "0%"
+                              :y "0%"
+                              :width "25%"
+                              :height "20%"
+                              :anchor "top right")
+          :stacking "fg"
+          :wm-ignore true
+          :windowtype "normal"
+          (network-control_mainWidget))

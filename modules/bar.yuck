@@ -5,7 +5,7 @@
        (bar_centerIsland)
        (bar_rightIsland)))
 
-
+;;TODO; fix spotify lacking symbol.
 (defwidget bar_leftIsland[]
   (box :orientation "horizontal"
        :class "bar_leftIsland"
