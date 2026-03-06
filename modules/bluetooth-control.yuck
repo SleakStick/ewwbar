@@ -1,0 +1,54 @@
+;; This was copied and modified from https://github.com/theUGG0/eww_bluetooth_widget/blob/main/eww.yuck
+;;Credit to theUGG0
+
+(defwidget bluetooth-control_mainWidget[]
+  (box :class "bluetooth-container" :orientation "h" :vexpand true :space-evenly false
+  (box :orientation "v" :class "bluetooth-panel" :spacing 5 :space-evenly false
+    (box :orientation "h" :class "bt-header" :space-evenly true :hexpand false
+      (button :class "bt-power"
+              :onclick "./scripts/bluetooth-control.sh toggle_power"
+              "${bluetooth-control_controllerPoll.powered ? 'Turn off' : 'Turn on'}")
+      (button :class "bt-scan"
+              :onclick "./scripts/bluetooth-control.sh toggle_scan" :timeout "11s"
+              "${bluetooth-control_controllerPoll.discovering ? 'Scanning' : 'Scan'}"))
+    
+    (box :orientation "h" :class "bt-known-container" :space-evenly true
+      (box :orientation "v" :class "bt-connected-list" :spacing 1 :space-evenly false
+        (label :class "bt-connected-label" :text "Connected")
+        (for device in "${bluetooth-control_devicesPoll.connected}"
+          (bluetooth-control_device :device device)))
+      (box :orientation "v" :class "bt-paired-list" :spacing 0 :space-evenly false
+        (label :class "bt-paired-label" :text "Paired")
+        (for device in "${bluetooth-control_devicesPoll.paired}"
+          (bluetooth-control_device :device device))))
+    
+    (box :orientation "v" :class "bt-devices-list" :spacing 0 :vexpand "true" :space-evenly false
+      (label :class "bt-devices-label" :text "Available devices")
+      (scroll :vscroll true :vexpand "true"
+        (box :orientation "v" :class "bt-devices-container" :spacing 0 :vexpand "true"
+          (for device in "${bluetooth-control_devicesPoll.devices}"
+            (bluetooth-control_device :device device)
+          )
+        )
+      )
+    )
+  )
+    (revealer :reveal bluetooth-control_menuVisible :transition "slideright" :hexpand true :vexpand true :space-evenly false
+      (bluetooth-control_deviceMenu :device bluetooth-control_selectedDevice)
+    )
+  ))
+
+(defwidget bluetooth-control_device [device]
+  (eventbox :onclick "eww update bluetooth-control_menuVisible=${!bluetooth-control_menuVisible}; eww update bluetooth-control_selectedDevice='${device}'"
+    (label :class "bt-device-label" :text "${device.name}")))
+
+(defwidget bluetooth-control_deviceMenu [device]
+  (box :orientation "v" :class "bt-device-menu" :spacing 5 :space-evenly false
+    (label :text "${device.name}")
+    (button :class "bt-device-button" 
+            :onclick "exec ./scripts/bluetooth-control.sh -m '${device}' ${'${device.connected}' ? '-d' : '-c'}" 
+            "${'${device.connected}' ? 'Disconnect' : 'Connect'}")
+    (button :class "bt-device-button" 
+            :onclick "eww update bluetooth-control_menuVisible=false" 
+            "Close")))
+
