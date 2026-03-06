@@ -19,5 +19,19 @@
 (defpoll audio-control_current-sink :interval "1s"
   "pactl list sinks | grep -B5 $(pactl get-default-sink) | grep description | cut -c 24-")
 
+(defpoll bluetooth-control_devicesPoll :interval "2s" :initial "{}" 
+  "exec ./scripts/bluetooth-control.sh poll_devices")
+(defpoll bluetooth-control_controllerPoll :interval "24h" :initial "[]"
+  "exec ./scripts/bluetooth-control.sh poll_controller") 
+(defvar bluetooth-control_menuVisible false)
+(defvar bluetooth-control_selectedDevice "{}")
+
+(deflisten network-control_knownNetworks :initial '["err"]'
+  "./scripts/network-control.sh known_networks")
+(deflisten network-control_unknownNetworks :initial '["err"]'
+  "./scripts/network-control.sh unknown_networks")
+(deflisten network-control_currentNetwork :initial '["err"]'
+  "./scripts/network-control.sh current_network")
+
 (defvar backgroundColor "#33adcc")
 (defvar accentColor "#33adcc")
