@@ -2,6 +2,9 @@
 (include "./modules/media-player.yuck")
 (include "./modules/bar.yuck")
 (include "./modules/audio-control.yuck")
+(include "./modules/bluetooth-control.yuck")
+(include "./modules/network-control.yuck")
+
 
 (defwindow media-player_Window
            :monitor 0
@@ -46,6 +49,30 @@
           :geometry (geometry :x "0%"
                               :y "0%"
                               :width "25%"
+                              :height "20%"
+                              :anchor "top right")
+          :stacking "fg"
+          :wm-ignore true
+          :windowtype "normal"
+          (network-control_mainWidget))
+
+(defwindow bluetooth-control_Window
+          :monitor 0
+          :geometry (geometry :x "0%"
+                              :y "0%"
+                              :width "35%"
+                              :height "20%"
+                              :anchor "top right")
+          :stacking "fg"
+          :wm-ignore true
+          :windowtype "normal"
+          (bluetooth-control_mainWidget))
+
+(defwindow network-control_Window
+          :monitor 0
+          :geometry (geometry :x "0%"
+                              :y "0%"
+                              :width "35%"
                               :height "20%"
                               :anchor "top right")
           :stacking "fg"
