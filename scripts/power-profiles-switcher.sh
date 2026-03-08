@@ -6,6 +6,6 @@ echo $POWER_PROFILE
 sudo -n powerprofilesctl set ${NEXT_POWER_PROFILE_DICT[$POWER_PROFILE]}
 echo "set the power profile to "
 echo $(sudo -n powerprofilesctl get)
-eww update bar_batteryInfo="$(/home/ben/.config/eww/scripts/battery-info.sh)"
+eww update bar_batteryInfo="$(~/.config/eww/scripts/battery-info.sh)" #TODO CHANGE!!!
 echo "updated the batteryInfo variable "
 exit
