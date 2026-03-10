@@ -32,6 +32,10 @@
   "./scripts/network-control.sh unknown_networks")
 (deflisten network-control_currentNetwork :initial '["err"]'
   "./scripts/network-control.sh current_network")
+(defvar network-control_controlWidgetReavealer false)
+(defvar network-control_knownControlWidgetReavealer false)
+(defvar network-control_unknownControlWidgetReavealer false)
+(defvar network-control_controlWidgetInfo "")
 
 (defvar backgroundColor "#33adcc")
 (defvar accentColor "#33adcc")
