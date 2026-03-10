@@ -78,4 +78,5 @@
           :stacking "fg"
           :wm-ignore true
           :windowtype "normal"
+          :focusable true
           (network-control_mainWidget))
