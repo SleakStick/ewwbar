@@ -39,7 +39,7 @@
   ))
 
 (defwidget bluetooth-control_device [device]
-  (eventbox :onclick "eww update bluetooth-control_menuVisible=${!bluetooth-control_menuVisible}; eww update bluetooth-control_selectedDevice='${device}'"
+  (eventbox :onclick "./scripts/network-control.sh eww update bluetooth-control_menuVisible=${!bluetooth-control_menuVisible}; eww update bluetooth-control_selectedDevice='${device}'"
     (label :class "bt-device-label" :text "${device.name}")))
 
 (defwidget bluetooth-control_deviceMenu [device]
