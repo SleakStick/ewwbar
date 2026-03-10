@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -A SUBSTRING_LIST=(["Firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["~"]="" ["Spotify"]= ["pdf"]="")
+declare -A SUBSTRING_LIST=(["Firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["~"]="" ["spotify"]= ["Spotify"]= ["pdf"]="")
 
 declare -a WORKSPACE_BUTTONS
 
