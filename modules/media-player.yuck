@@ -1,4 +1,3 @@
-;;TODO; have the options for multiple active players and make pause/play button change symbol
 (defwidget media-player_mainWidget[]
   (box :orientation "vertical"
        :space-evenly false
@@ -20,8 +19,10 @@
        :class "media-player_imageBox"
        (image :path media-player_artPath
         :image-width 200
+        :class "media-player_imageBox"
         :image-height 200)
         (scale :draw-value true
+        :class "slider"
         :orientation "vertical"
         :flipped true
         :max 101 :min 0
@@ -33,10 +34,10 @@
   (box :orientation "horizontal"
        :halign "center"
        :class "media-player_controlBox"
-       (button :onclick "playerctl previous"
+       (button :onclick "playerctl previous" :class "media-player_controlButton"
         "󰒮")
-       (button :onclick "playerctl play-pause"
-        "")
-       (button :onclick "playerctl next"
+       (button :onclick "playerctl play-pause" :class "media-player_controlButton"
+        (label :text {media-player_status == "Playing" ? "" : ""}))
+       (button :onclick "playerctl next" :class "media-player_controlButton"
         "󰒭")))
 
