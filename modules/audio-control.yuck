@@ -1,25 +1,29 @@
 (defwidget audio-control_mainWidget[]
   (box :orientation "horizontal"
-       :space-evenly true
+       :class "audio-control_mainBox"
        (audio-control_outputWidget)
        (audio-control_appsWidget)))
 
-;;TODO; Make combo-box-text keep the current selection as label
 (defwidget audio-control_outputWidget[]
   (box :orientation "vertical"
        :class "audio-control_outputWidget"
-        (scale :draw-value true
-        :orientation "vertical"
-        :flipped true
-        :max 101 :min 0
-        :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
-        :value media-player_currentVolume)
-       (combo-box-text :items {audio-control_info.sinks} :timeout "1000ms"
-                       :onchange "./scripts/audio-control.sh sink_to {} > ./resources/debug.log")))
+       (scale :draw-value true
+       :valign "center"
+       :class "slider-vertical"
+       :orientation "vertical"
+       :flipped true
+       :max 101 :min 0
+       :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+       :value media-player_currentVolume)
+       (combo-box-text :items {audio-control_info.sinks} :timeout "1000ms" :class "audio-control_comboBox" :valign "center"
+                       :onchange "./scripts/audio-control.sh sink_to {} > ./resources/debug.log" (label :class "audio-control_textComboBox" :text "${audio-control_info.sinks[0]}"))))
 
-;;'TODO; add names/symbols for sliders'
 (defwidget audio-control_appsWidget[]
-  (box :orientation "horizontal"
+  (box :orientation "vertical"
        :class "audio-control_appsWidget"
+       :valign "center"
+       :halign "center"
        (for app in {audio-control_info.apps}
-            (scale :draw-value true :orientation "vertical" :flipped true :max 101 :min 0 :value "${app.volume}" :onchange "./scripts/audio-control.sh app_audio ${app.name} {}"))))
+          (box :orientation "horizontal" :space-evenly false :valign "center"
+            (scale :class "slider-horizontal" :draw-value true :orientation "horizontal" :flipped false :max 101 :min 0 :value "${app.volume}" :onchange "./scripts/audio-control.sh app_audio ${app.name} {}")
+            (label :valign "center" :class "audio-control_appNames" :text "   ${app.symbol}")))))

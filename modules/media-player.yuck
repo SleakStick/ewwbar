@@ -22,7 +22,7 @@
         :class "media-player_imageBox"
         :image-height 200)
         (scale :draw-value true
-        :class "slider"
+        :class "slider-vertical"
         :orientation "vertical"
         :flipped true
         :max 101 :min 0

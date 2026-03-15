@@ -1,0 +1,74 @@
+(defwidget network-control_mainWidget[]
+  (box :orientation "vertical"
+       :class "network-control_mainWidget"
+       :space-evenly false
+       :halign "end"
+       (network-control_topPanel)
+       (network-control_networkBox)))
+
+(defwidget network-control_topPanel[]
+  (box :orientation "horizontal"
+       :space-evenly false
+       :halign "start"
+       :class "network-control_topPanel"
+       (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh select_known_network ${network-control_knownControlWidgetReavealer} ${network-control_currentNetwork[0].ssid}" (label :text "${network-control_currentNetwork[0].ssid}"))
+       (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_power" (label :class "network-control_text" :text "${network-control_onOffButton}")) 
+       (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_scan" (label :class "network-control_text" :text "${network-control_scanButton}"))
+       (button :class "network-control_controlButton" :onclick "eww close network-control_Window" (label :text ""))))
+
+(defwidget network-control_networkBox[]
+  (box :orientation "horizontal"
+    :class "network-control_networkBox"
+    :space-evenly false
+    (network-control_knownNetworks)
+    (network-control_unknownNetworks)
+    (revealer :reveal network-control_unknownControlWidgetReavealer
+              :duration "0ms"
+              :visible network-control_unknownControlWidgetReavealer
+              (network-control_unknownControlWidget))
+    (revealer :reveal network-control_knownControlWidgetReavealer
+              :duration "0ms"
+              :visible network-control_knownControlWidgetReavealer
+              (network-control_knownControlWidget))))
+
+(defwidget network-control_knownNetworks[]
+  (box :orientation "vertical"
+       :class "network-control_knownNetworksBox"
+       :space-evenly false
+       :halign "center"
+       (label :class "network-control_controlPanelText" :text "Known networks")
+       (for known_network in network-control_knownNetworks
+       (button :halign "center" :class "network-control_button" :onclick "./scripts/network-control.sh select_known_network ${network-control_knownControlWidgetReavealer} ${known_network.ssid}" :timeout "10s"
+              (label :text "${known_network.ssid}")))))
+
+(defwidget network-control_unknownNetworks[]
+  (box :orientation "vertical"
+       :class "network-control_unknownNetworksBox"
+       :space-evenly false
+       :halign "center"
+       (label :class "network-control_controlPanelText" :text "Nearby networks")
+       (for unknown_network in network-control_unknownNetworks
+       (button :halign "center" :class "network-control_button" :onclick "./scripts/network-control.sh select_unknown_network ${network-control_unknownControlWidgetReavealer} '${unknown_network.ssid}'" :timeout "10s" ;Set max length for the name for a niche layout.
+                (label :text "${unknown_network.ssid}--${unknown_network.signal}%")))))
+
+
+(defwidget network-control_knownControlWidget[] 
+  (box :orientation "vertical" :class "network-control_controlWidget" (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.name}")
+       (box :orientation "horizontal" :halign "start" :hexpand false 
+            (button :onclick "./scripts/network-control.sh ${network-control_controlWidgetInfo.command} ${network-control_controlWidgetInfo.name}" :timeout "5s"
+                    (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.buttonlabel}"))
+            (button :onclick "./scripts/network-control.sh forget_network ${network-control_controlWidgetInfo.name}"
+                    (label :class "network-control_controlPanelText" :text "forget network")))
+            (button :class "network-control_button" :onclick "eww update network-control_knownControlWidgetReavealer='false'" (label :text ""))))
+
+
+(defwidget network-control_unknownControlWidget[]
+  (box :orientation "vertical" :halign "start" :hexpand false
+    (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.name}")
+    (label :class "network-control_controlPanelText" :text "security; ${network-control_controlWidgetInfo.security}") 
+  (label :text "signal strength; ${network-control_controlWidgetInfo.signal}%")
+      (input :value ""
+           :password true
+           :onaccept "./scripts/network-control.sh connect_unknown ${network-control_controlWidgetInfo.name} {} ${network-control_controlWidgetInfo.security}")
+      (label :class "network-control_controlPanelText" :text "Password, enter to connect")
+      (button :class "network-control_button" :onclick "eww update network-control_unknownControlWidgetReavealer='false'" (label :text ""))))

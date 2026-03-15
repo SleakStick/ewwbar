@@ -1,7 +1,8 @@
 #!/bin/bash
 
 declare -a SINK_BANWORDS=("Output") #ignore sinks with these words, (used to avoid duplicate sinks)
-declare -A SINK_RENAMES=( ["Raptor Lake-P/U/H cAVS Speaker"]="Laptop Speakers" ) #rename the sink (key) to the value
+declare -A SINK_RENAMES=( ["Raptor Lake-P/U/H cAVS Speaker"]="Laptop Speakers" ["Raptor Lake-P/U/H cAVS Headphones"]="Headphones") #rename the sink (key) to the value
+declare -A SYMBOL_LIST=( ["spotify-player"]="" ["Firefox"]=󰈹 ["YouTube"]=󰗃 ["spotify"]="" )
 
 #there is certainly a better way to do this but fuck it
 DEFAULT_SINK_NAME=$(pactl get-default-sink)
@@ -61,17 +62,31 @@ print_apps () {
   i=0
   declare -a APPS_NAMES
   declare -a APPS_VOLUMES
+  declare -a APPS_SYMBOLS
   while [ $i -lt $APPS_COUNT ]; do
-    DESC=$(echo $APPS_RAW_JSON | jq ".[$i] | .properties[\"application.name\"]")
+    DESC=$(echo $APPS_RAW_JSON | jq -r ".[$i] | .properties[\"application.name\"]")
     VOLUME=$(echo $APPS_RAW_JSON | jq -r ".[$i].volume.\"front-left\".value_percent" | cut -d '%' -f1)
     APPS_VOLUMES[$i]=$VOLUME
     APPS_NAMES[$i]=$DESC
+    APPS_SYMBOLS[$i]=$DESC
+    for key in ${!SYMBOL_LIST[@]}; do
+      if [[ "$DESC" == *"$key"* ]]; then
+        APPS_SYMBOLS[$i]="${SYMBOL_LIST[$key]}"
+      fi
+    done
     ((i++))
   done
   APPS_NAMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${APPS_NAMES[@]}")
   APPS_VOLUMES_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args "${APPS_VOLUMES[@]}")
-  APPS_INFO_JSON=$(jq -n --argjson a "$APPS_VOLUMES_JSON" --argjson b "$APPS_NAMES_JSON" 'range(0; $a | length) as $i | { "volume": $a[$i], "name": $b[$i] } | . ' | jq -s '.')
+  APPS_SYMBOLS_JSON=$(jq -nc '$ARGS.positional | map(select(. != ""))' --args ${APPS_SYMBOLS[@]})
+
+  APPS_INFO_JSON=$(jq -n --argjson a "$APPS_VOLUMES_JSON" --argjson b "$APPS_NAMES_JSON" --argjson c $APPS_SYMBOLS_JSON 'range(0; $a | length) as $i | { "volume": $a[$i], "name": $b[$i], "symbol": $c[$i] } | . ' | jq -s '.')
 }
+#  for key in "${!SUBSTRING_LIST[@]}"; do
+#    if [[ "$WORKSPACE_LASTWINDOW" == *"$key"* ]]; then
+#      WORKSPACE_BUTTONS[$i]="${SUBSTRING_LIST[$key]} $WORKSPACE_ID"
+#    fi
+#  done
 
 # change sink to whatever was chosen in the combo-box-text
 change_sink () {
@@ -106,6 +121,11 @@ if [[ "$1" == "app_audio" ]]; then
   change_app_audio "$1" "$2" $3 
   loop=false
 fi
+if [[ "$1" == "current_sink" ]]; then
+  CURRENT_SINK="$(pactl --format=json list sinks | jq -r '.[] | select(.name == "'$(pactl get-default-sink)'") | .description')"
+  echo $CURRENT_SINK
+  loop=false
+fi
 while [ $loop == true ]; do
   print_sinks
   print_apps
@@ -113,3 +133,4 @@ while [ $loop == true ]; do
   echo $AUDIO_INFO
   sleep 2
 done
+

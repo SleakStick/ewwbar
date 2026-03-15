@@ -30,3 +30,4 @@ JSON_WORKSPACE_BUTTONS="$(jq -nc '$ARGS.positional | map(split(" ") | {symb: .[0
 echo ${JSON_WORKSPACE_BUTTONS[@]}
 sleep 0.2
 done
+
