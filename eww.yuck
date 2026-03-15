@@ -4,13 +4,14 @@
 (include "./modules/audio-control.yuck")
 (include "./modules/bluetooth-control.yuck")
 (include "./modules/network-control.yuck")
+(include "./modules/system-control.yuck")
 
 
 (defwindow media-player_Window
            :monitor 0
-           :geometry (geometry :x "0%"
-                               :y "0%"
-                               :width "25%"
+           :geometry (geometry :x "1%"
+                               :y "1%"
+                               :width "20%"
                                :height "20%"
                                :anchor "top right")
            :stacking "fg"
@@ -34,10 +35,10 @@
 
 (defwindow audio-control_Window
           :monitor 0
-          :geometry (geometry :x "0%"
-                              :y "0%"
-                              :width "25%"
-                              :height "20%"
+          :geometry (geometry :x "1%"
+                              :y "1%"
+                              :width "20%"
+                              :height "15%"
                               :anchor "top right")
           :stacking "fg"
           :wm-ignore true
@@ -58,9 +59,9 @@
 
 (defwindow bluetooth-control_Window
           :monitor 0
-          :geometry (geometry :x "0%"
-                              :y "0%"
-                              :width "35%"
+          :geometry (geometry :x "1%"
+                              :y "1%"
+                              :width "25%"
                               :height "20%"
                               :anchor "top right")
           :stacking "fg"
@@ -70,13 +71,23 @@
 
 (defwindow network-control_Window
           :monitor 0
-          :geometry (geometry :x "0%"
-                              :y "0%"
-                              :width "35%"
-                              :height "20%"
+          :geometry (geometry :x "1%"
+                              :y "1%"
+                              :width "25%"
+                              :height "18%"
                               :anchor "top right")
           :stacking "fg"
           :wm-ignore true
           :windowtype "normal"
           :focusable true
           (network-control_mainWidget))
+(defwindow system-control_Window
+          :monitor 0
+          :geometry (geometry :y "1%"
+                              :width "15%"
+                              :height "6%"
+                              :anchor "top center")
+          :stacking "fg"
+          :wm-ignore true
+          :windowtype "normal"
+          (system-control_mainWidget))
