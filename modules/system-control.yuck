@@ -1,0 +1,23 @@
+(defwidget system-control_mainWidget[] 
+    (box :orientation "horizontal"
+         :class "system-control"
+         :space-evenly false
+         (system-control_adminButtons)
+         (system-control_resourceInfo)))
+
+(defwidget system-control_adminButtons[] 
+    (box :orientation "vertical"
+         :class "system-control_adminButtons"
+         :halign "start"
+         (button :class "system-control_button" :onclick "./scripts/system-control.sh shutdown" :timeout "1s" (label :class "system-control_text" :text ""))
+         (button :class "system-control_button" :onclick "./scripts/system-control.sh restart" :timeout "1s" (label :class "system-control_text" :text ""))
+         (button :class "system-control_button" :onclick "./scripts/system-control.sh logout" :timeout "1s" (label :class "system-control_text" :text "󰗽"))))
+
+(defwidget system-control_resourceInfo[] 
+  (box :orientation "vertical"
+       :class "system-control_resourceInfo"
+       :halign "start"
+          (label :class "system-control_text" :text "  ${system-control_info.memory}/${system-control_info.memtot}")
+          (label :class "system-control_text" :text " ${system-control_info.cputemp} 󰔄   ${system-control_info.nvmetemp} 󰔄 ")
+          (label :class "system-control_text" :text "󱑲 ${system-control_info.fan1} rpm  󱑳 ${system-control_info.fan2} rpm")
+          (label :class "system-control_text" :text " ${system-control_info.batchrg}W")))
