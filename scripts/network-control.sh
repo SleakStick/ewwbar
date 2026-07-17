@@ -6,7 +6,7 @@ connect_unknown () {
   SSID="$1"
   PASSWORD="$2"
   SECURITY="$3"
-  nmcli connection add type wifi con-name "$SSID" ifname "$INTERFACE" ssid "$SSID" -- wifi-sec.key-mgmt wpa-psk
+  nmcli connection add type wifi con-name "$SSID" ifname "$INTERFACE" ssid "$SSID" wifi-sec.key-mgmt wpa-psk
   nmcli connection modify $SSID wifi-sec.psk "$PASSWORD"
   nmcli connection up $SSID
 }
