@@ -21,7 +21,7 @@ if [[ "$CONTENTS" == "$1" ]]; then
   if [[ "$1" == "shutdown" ]]; then
     poweroff
   elif [[ "$1" == "restart" ]]; then
-    restart
+    reboot
   elif [[ "$1" == "logout" ]]; then
     hyprctl dispatch exit
   fi
