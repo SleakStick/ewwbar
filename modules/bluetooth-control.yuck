@@ -1,6 +1,6 @@
 (defwidget bluetooth-control_mainWidget[]
   (box :class "bluetooth-control_mainContainer" :orientation "horizontal" :halign "end" :space-evenly false
-    (box :class "bluetooth-control_devicesContainer" :orientation "vertical"
+    (box :class "bluetooth-control_devicesContainer" :orientation "vertical" :halign "center" :space-evenly false
 
        (box :class "bluetooth-control_headerContainer" :orientation "horizontal" 
             (button :class "bluetooth-control_headerButton" :onclick "./scripts/bluetooth-control.sh toggle_power" :timeout "5s" 
@@ -23,11 +23,11 @@
                                 (label :class "bluetooth-control_buttonText" :text "${device.name}")))))
        (box :class "bluetooth-control_nearbyDevices" :orientation "vertical"
             (label :class "bluetooth-control_text" :text "Nearby Devices")
-            (scroll :vscroll true :vexpand "true"
+            (box :orientation "vertical"
                     (for device in "${bluetooth-control_devicesPoll.devices}"
                         (button :class "bluetooth-control_button" 
                                 :onclick "eww update bluetooth-control_menuVisible=${!bluetooth-control_menuVisible}; eww update bluetooth-control_selectedDevice='${device}'" 
-                                (label :class "bluetooth-control_text" :text "${device.name}"))))))
+                                (label :class "bluetooth-control_buttonText" :text "${device.name}"))))))
     (revealer :reveal bluetooth-control_menuVisible :visible bluetooth-control_menuVisible :transition "slideleft" :duration "1s"
     (bluetooth-control_deviceMenu :device bluetooth-control_selectedDevice))))
 
@@ -37,6 +37,9 @@
     (button :class "bluetooth-control_button"
             :onclick "exec ./scripts/bluetooth-control.sh -m '${device}' ${'${device.connected}' ? '-d' : '-c'}" 
             "${'${device.connected}' ? 'Disconnect' : 'Connect'}")
+    (button :class "bluetooth-control_button"
+            :onclick "exec ./scripts/bluetooth-control.sh -m '${device}' -f"
+            "Forget")
     (button :class "bluetooth-control_button" 
             :onclick "eww update bluetooth-control_menuVisible=false" 
             "")))
