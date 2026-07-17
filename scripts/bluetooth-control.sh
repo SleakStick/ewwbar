@@ -135,11 +135,12 @@ fi
 device=""
 action=""
 
-while getopts "m:cd" opt; do
+while getopts "m:cdf" opt; do
     case $opt in
         m) device=$OPTARG ;;
         c) action="connect" ;;
         d) action="disconnect" ;;
+        f) action="forget" ;;
         \?) echo "Invalid option -$OPTARG" >&2; exit 1 ;;
         :) echo "Option -$OPTARG requires an argument." >&2; exit 1 ;;
     esac
@@ -153,7 +154,10 @@ case $action in
         bluetoothctl connect "$mac" & eww update bluetooth-control_selectedDevice="$(echo "$device" | jq -c '.connected = true')"
         ;;
     disconnect)
-        bluetoothctl disconnect "$mac" & eww update bluetooth-control_selectedDevice ="$(echo $device | jq -c '.connected = false')"
+        bluetoothctl disconnect "$mac" & eww update bluetooth-control_selectedDevice ="$(echo "$device" | jq -c '.connected = false')"
+        ;;
+    forget)
+        bluetoothctl remove $mac & eww update bluetooth-control_selectedDevice ="$(echo "$device" | jq -c '.connected = false')"
         ;;
 esac
 
