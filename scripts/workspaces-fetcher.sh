@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -A SUBSTRING_LIST=(["Firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["~"]="" ["spotify"]= ["Spotify"]= ["pdf"]="")
+declare -A SUBSTRING_LIST=(["firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["kitty"]="" ["spotify"]= ["Evince"]="" ["sioyek"]="" ["mpv"]="" ["Nautilus"]="󰉋")
 
 declare -a WORKSPACE_BUTTONS
 
@@ -14,7 +14,10 @@ i=0
 while [ $i -lt $WORKSPACES_COUNT ]
 do
   WORKSPACE_ID=$(echo $HYPR_WORKSPACES_OUTPUT | jq -r ".[$i].id")
-  WORKSPACE_LASTWINDOW=$(echo $HYPR_WORKSPACES_OUTPUT | jq -r ".[$i].lastwindowtitle")
+  if [[ $WORKSPACE_ID -ge 1 ]]; then
+  WORKSPACE_WINDOWID=$(echo $HYPR_WORKSPACES_OUTPUT | jq -r ".[$i].lastwindow")
+  WORKSPACE_LASTWINDOW=$(hyprctl clients -j | jq --arg a "$WORKSPACE_WINDOWID" '.[] | select(.address == $a) | .class')
+  echo $WORKSPACE_LASTWINDOW
   WORKSPACE_BUTTONS[$i]=" $WORKSPACE_ID"
   for key in "${!SUBSTRING_LIST[@]}"; do
     if [[ "$WORKSPACE_LASTWINDOW" == *"$key"* ]]; then
@@ -23,6 +26,7 @@ do
   done
   if [[ "$WORKSPACE_ID" == "$ACTIVE_WORKSPACE_ID" ]]; then
     WORKSPACE_BUTTONS[$i]=" $WORKSPACE_ID"
+  fi
   fi
   ((i++))
 done
