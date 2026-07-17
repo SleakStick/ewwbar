@@ -4,10 +4,10 @@
 "pactl --format='json' get-sink-volume @DEFAULT_SINK@ | jq -r '.volume[\"front-left\"].value_percent'| cut -d '%' -f1")
 (defpoll media-player_currentTitle :interval "1s"
   "playerctl metadata --format '{{title}} - {{artist}}'")
-(deflisten media-player_status :initial ""
+(deflisten media-player_status :initial "false"
   "playerctl status --follow")
 
-(deflisten bar_workspaces :initial '["err"]'
+(deflisten bar_workspaces :initial '{"sinks": [], "sources": []}'
   "stdbuf -oL ./scripts/workspaces-fetcher.sh")
 (defpoll bar_batteryInfo :interval "10s"
   "./scripts/battery-info.sh")
@@ -23,7 +23,7 @@
 
 (defpoll bluetooth-control_devicesPoll :interval "2s" :initial "{}" 
   "./scripts/bluetooth-control.sh poll_devices")
-(defpoll bluetooth-control_controllerPoll :interval "24h" :initial "[]"
+(defpoll bluetooth-control_controllerPoll :interval "24h" :initial "{}"
   "./scripts/bluetooth-control.sh poll_controller") 
 (defvar bluetooth-control_menuVisible false)
 (defvar bluetooth-control_selectedDevice "{}")
@@ -46,7 +46,7 @@
 (defpoll bar_audioControlIcon :initial "" :interval "2s"
   "./scripts/bar_symbols.sh audio_control")
 
-(defpoll system-control_info :initial "" :interval "1s"
+(defpoll system-control_info :initial '{"sinks": [], "sources": []}' :interval "1s"
   "./scripts/system-control.sh sysinfo")
 
 (defvar backgroundColor "#33adcc")

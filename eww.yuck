@@ -10,7 +10,7 @@
 (defwindow media-player_Window
            :monitor 0
            :geometry (geometry :x "1%"
-                               :y "1%"
+                               :y "0%"
                                :width "20%"
                                :height "20%"
                                :anchor "top right")
@@ -22,7 +22,7 @@
 (defwindow bar_Window
            :monitor 0
            :geometry (geometry :x "0%"
-                               :y "1%"
+                               :y "0%"
                                :width "98%"
                                :height "3%"
                                :anchor "top center")
@@ -36,7 +36,7 @@
 (defwindow audio-control_Window
           :monitor 0
           :geometry (geometry :x "1%"
-                              :y "1%"
+                              :y "0%"
                               :width "20%"
                               :height "15%"
                               :anchor "top right")
@@ -47,7 +47,7 @@
 
 (defwindow network-control_Window
           :monitor 0
-          :geometry (geometry :x "0%"
+          :geometry (geometry :x "1%"
                               :y "0%"
                               :width "25%"
                               :height "20%"
@@ -60,9 +60,9 @@
 (defwindow bluetooth-control_Window
           :monitor 0
           :geometry (geometry :x "1%"
-                              :y "1%"
+                              :y "0%"
                               :width "25%"
-                              :height "20%"
+                              :height "15%"
                               :anchor "top right")
           :stacking "fg"
           :wm-ignore true
@@ -72,7 +72,7 @@
 (defwindow network-control_Window
           :monitor 0
           :geometry (geometry :x "1%"
-                              :y "1%"
+                              :y "0%"
                               :width "25%"
                               :height "18%"
                               :anchor "top right")
@@ -83,7 +83,7 @@
           (network-control_mainWidget))
 (defwindow system-control_Window
           :monitor 0
-          :geometry (geometry :y "1%"
+          :geometry (geometry :y "0%"
                               :width "15%"
                               :height "6%"
                               :anchor "top center")
