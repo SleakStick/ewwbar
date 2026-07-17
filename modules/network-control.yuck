@@ -9,7 +9,7 @@
 (defwidget network-control_topPanel[]
   (box :orientation "horizontal"
        :space-evenly false
-       :halign "start"
+       :halign "center"
        :class "network-control_topPanel"
        (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh select_known_network ${network-control_knownControlWidgetReavealer} ${network-control_currentNetwork[0].ssid}" (label :text "${network-control_currentNetwork[0].ssid}"))
        (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_power" (label :class "network-control_text" :text "${network-control_onOffButton}")) 
@@ -68,7 +68,7 @@
     (label :class "network-control_controlPanelText" :text "security; ${network-control_controlWidgetInfo.security}") 
   (label :text "signal strength; ${network-control_controlWidgetInfo.signal}%")
       (input :value ""
-           :password true
-           :onaccept "./scripts/network-control.sh connect_unknown ${network-control_controlWidgetInfo.name} {} ${network-control_controlWidgetInfo.security}")
+           :password false
+           :onaccept "./scripts/network-control.sh connect_unknown ${network-control_controlWidgetInfo.name} {} ${network-control_controlWidgetInfo.security}") ;If enter is hit twice, there will be two connections, TODO fix this in the script
       (label :class "network-control_controlPanelText" :text "Password, enter to connect")
       (button :class "network-control_button" :onclick "eww update network-control_unknownControlWidgetReavealer='false'" (label :text ""))))
