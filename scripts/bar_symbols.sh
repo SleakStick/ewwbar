@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 audio_control () { #󰋋 󰟎      
   declare -a SPEAKER_SYMBOLS=(  )

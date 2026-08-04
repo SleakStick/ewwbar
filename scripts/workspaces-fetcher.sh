@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -A SUBSTRING_LIST=(["firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["kitty"]="" ["spotify"]= ["Evince"]="" ["sioyek"]="" ["mpv"]="" ["Nautilus"]="󰉋")
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 declare -A NEXT_POWER_PROFILE_DICT=(["power-saver"]="balanced" ["balanced"]="performance" ["performance"]="power-saver")
 echo "declared dict"
 POWER_PROFILE=$(sudo -n powerprofilesctl get)

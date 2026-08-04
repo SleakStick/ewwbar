@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Target file for Eww to display
 TMP_DIR="/tmp/eww/media"

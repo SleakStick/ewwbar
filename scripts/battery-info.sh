@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 BATTERY_PERCENTAGE="$(cat /sys/class/power_supply/BAT0/capacity)"
 declare -A BATTERY_PERCENTAGE_ICON_DICT=(["80"]="" ["60"]="" ["40"]="" ["20"]="" ["0"]="" )
 i=80

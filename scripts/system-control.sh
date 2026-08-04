@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
 if [[ "$1" == "sysinfo" ]]; then
   MEMUSED=$(free -m -h | awk '/^Mem:/ {print $3}')

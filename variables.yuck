@@ -48,6 +48,7 @@
 
 (defpoll system-control_info :initial '{"sinks": [], "sources": []}' :interval "1s"
   "./scripts/system-control.sh sysinfo")
+(defvar system-control_inhibit-sleep false)
 
 (defvar backgroundColor "#33adcc")
 (defvar accentColor "#33adcc")

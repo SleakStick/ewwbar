@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -a SINK_BANWORDS=("Output") #ignore sinks with these words, (used to avoid duplicate sinks)
 declare -A SINK_RENAMES=( ["Raptor Lake-P/U/H cAVS Speaker"]="Laptop Speakers" ["Raptor Lake-P/U/H cAVS Headphones"]="Headphones") #rename the sink (key) to the value

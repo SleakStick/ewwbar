@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This was forked from https://github.com/theUGG0/eww_bluetooth_widget/blob/main/eww.yuck
 # Credit to theUGG0 for making a script i can ruin with my lacking skills
 

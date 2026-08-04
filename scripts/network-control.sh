@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 CURRENT_NETWORK="$(nmcli -t -f NAME,STATE connection show --active | grep -v '^lo' | grep :activated | cut -d: -f1)"
 
 connect_unknown () {
