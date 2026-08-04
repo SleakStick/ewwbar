@@ -12,8 +12,8 @@
          (button :class "system-control_button" :onclick "./scripts/system-control.sh shutdown" :timeout "1s" (label :class "system-control_text" :text ""))
          (button :class "system-control_button" :onclick "./scripts/system-control.sh restart" :timeout "1s" (label :class "system-control_text" :text ""))
          (button :class "system-control_button" :onclick "./scripts/system-control.sh logout" :timeout "1s" (label :class "system-control_text" :text "󰗽"))
-         (checkbox :class "system-control_button" :onchecked "systemctl mask suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target && kitty -e pipes.sh --title screensaver" 
-                   :onunchecked "systemctl unmask suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target" (label :class "system-control_text" :text "󰒳"))))
+         (checkbox :checked system-control_inhibit-sleep :class "system-control_checkbox" :onchecked "eww update system-control_inhibit-sleep=true & systemd-inhibit --what=sleep:idle --who='eww' --why='Manual inhibitor' sleep infinity &" 
+                   :onunchecked "pkill systemd-inhibit && eww update system-control_inhibit-sleep=false" (label :class "system-control_text" :text "󰒳"))))
 
 (defwidget system-control_resourceInfo[] 
   (box :orientation "vertical"
