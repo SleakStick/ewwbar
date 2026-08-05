@@ -17,7 +17,7 @@ do
   if [[ $WORKSPACE_ID -ge 1 ]]; then
   WORKSPACE_WINDOWID=$(echo $HYPR_WORKSPACES_OUTPUT | jq -r ".[$i].lastwindow")
   WORKSPACE_LASTWINDOW=$(hyprctl clients -j | jq --arg a "$WORKSPACE_WINDOWID" '.[] | select(.address == $a) | .class')
-  echo $WORKSPACE_LASTWINDOW
+  #echo $WORKSPACE_LASTWINDOW
   WORKSPACE_BUTTONS[$i]=" $WORKSPACE_ID"
   for key in "${!SUBSTRING_LIST[@]}"; do
     if [[ "$WORKSPACE_LASTWINDOW" == *"$key"* ]]; then
