@@ -21,3 +21,9 @@ This bar features custom icons for your workspaces, which adjust depending on th
 2. The bluetooth scripts returns inconsequential errors in `eww logs`.
 3. Fan speed will not work on all devices, and can be disabled by commenting out the relevant sections in `modules/system-control.yuck`.
 4. Adding new wifi connections will not work for all security systems, use nmtui/nmcli to create the connection and it should then be accessible in the network widget.
+5. The Connect/Disconnect button when selecting a bluetooth device does not update upon press, the device section must be closed and reopened.
+## Planned features
+1. Custom colorscheme that will match local weather
+2. Fullscreen layout of system controls
+3. More inter-system compatibility
+4. Fleshing out the network management interface
