@@ -1,7 +1,7 @@
  ewwbar is my (somewhat shoddy) custom bar, built with eww and bash I use on nixOS/archlinux and hyprland.
 This was built primarily for my thinkpad, but should mostly work (with some errors and bugs) on all laptops. Investigating `eww logs` will pinpoint the exact error when opening a widget or selecting a button, and opening issues on here is welcome.
 ## Installation
-To install you will need to clone this repo to your ~/.config/ directory and rename the ewwbar directory to eww. This project has a few required dependencies, most should be available in the nix store and the aur
+To install you will need to clone this repo to your `~/.config/` directory and rename the ewwbar directory to eww. This project has a few required dependencies, most should be available in the nix store and the aur
 - eww (obviously)
 - sensors (sometimes called lmsensors)
 - powerprofilesctl (if your running on a laptop)
