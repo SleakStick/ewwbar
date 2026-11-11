@@ -26,7 +26,7 @@
        :class "bar_batteryModule"
        :halign "start"
        (label :halign "start" :class "bar_batteryPercentageText" :text "${bar_batteryInfo[0].percentage}% ${bar_batteryInfo[0].battery_percentage_icon} ")
-       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "./scripts/power-profiles-switcher.sh > /tmp/debug.log 2>&1" :timeout "1000ms"
+       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "./scripts/power-profiles-switcher.sh" :timeout "1000ms"
                (label :text "${bar_batteryInfo[0].power_profile_icon}"))))
 (defwidget bar_clockModule[]
   (box :orientation "horizontal"
@@ -37,7 +37,7 @@
        :halign "end"
        :class "bar_infoCenterButton"
        (button :class "bar_infoCenterButton" :halign "center" :onclick "eww open --toggle system-control_Window"
-               (label :text ""))))
+               (label :text ""))))
 
 
 (defwidget bar_rightIsland[]
