@@ -1,7 +1,7 @@
  ewwbar is my (somewhat shoddy) custom bar, built with eww and bash I use on nixOS/archlinux and hyprland.
-This was built primarily for my thinkpad, but should mostly work (with some errors and bugs) on all laptops. Investigating `eww logs` will pinpoint the exact error when opening a widget or selecting a button, and opening issues on here is welcome.
+This was built primarily for my thinkpad, but should mostly work (with some errors and bugs) on all laptops. Investigating `eww logs` will pinpoint the exact error when opening a widget or selecting a button, and any issues or pull requests are more than welcome.
 ## Installation
-To install you will need to clone this repo to your ~/.config/ directory and rename the ewwbar directory to eww. This project has a few required dependencies, most should be available in the nix store and the aur
+To install you will need to clone this repo to your `~/.config/` directory and rename the ewwbar directory to eww. This project has a few required dependencies, most should be available in the nix store and the aur
 - eww (obviously)
 - sensors (sometimes called lmsensors)
 - powerprofilesctl (if your running on a laptop)
@@ -21,3 +21,9 @@ This bar features custom icons for your workspaces, which adjust depending on th
 2. The bluetooth scripts returns inconsequential errors in `eww logs`.
 3. Fan speed will not work on all devices, and can be disabled by commenting out the relevant sections in `modules/system-control.yuck`.
 4. Adding new wifi connections will not work for all security systems, use nmtui/nmcli to create the connection and it should then be accessible in the network widget.
+5. The Connect/Disconnect button when selecting a bluetooth device does not update upon press, the device section must be closed and reopened.
+## Planned features
+1. Custom colorscheme that will match local weather
+2. Fullscreen layout of system controls
+3. More inter-system compatibility
+4. Fleshing out the network management interface
