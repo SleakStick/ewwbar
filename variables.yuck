@@ -1,7 +1,8 @@
+(defvar monitor 0)
 (deflisten media-player_artPath :initial "./resources/placeholder.jpg"
   "./scripts/image-fetcher.sh")
 (defpoll media-player_currentVolume :interval "1s" :initial 100
-"pactl --format=json list sinks | jq --arg key 'front-left' --arg state 'RUNNING' '.[] | select(.state == $state) | .volume.[$key].value_percent' | sed 's/[^0-9]//g'")
+"pactl --format=json list sinks | jq --arg key 'front-left' --arg default_name $(pactl get-default-sink) '.[] | select(.name == $default_name) | .volume.[$key].value_percent' | sed 's/[^0-9]//g'")
 (defpoll media-player_currentTitle :interval "1s"
   "playerctl metadata --format '{{title}} - {{artist}}'")
 (deflisten media-player_status :initial "false"
