@@ -1,0 +1,420 @@
+$base-color: #b2b2b2;
+$border-color: #c3c3c3;
+$border-thickness: 1px;
+$contrast-color-light: #cccce6; 
+$contrast-color-dark: #808080; 
+$bright-color: #000000;
+$dark-color: #b2b2b2;
+$border-radius: 15px;
+$opacity: 0.8;
+$green: #4c804c;
+$red: #924c4c; 
+$line-color: #999999
+
+
+* {
+  all: unset;
+  color: $bright-color;
+  font-family: "JetBrainsMono Nerd Font";
+  border-radius: $border-radius;
+  background: none;
+  border: none;
+  border-top: none;
+  padding: 0px;
+}
+
+.bar_mainBox {
+  background-color: $line-color; 
+  opacity: $opacity;
+}
+
+
+.bar_leftIsland {
+  padding-left: 0px;
+  background-color: $base-color; /*$border-color*/
+  padding-right:15px;
+  border: $border-thickness solid $border-color;
+}
+.bar_workspaceButtons {
+  all: unset;
+  padding-left: 19px;
+  padding-right: 19px;
+  border-radius: $border-radius;
+  border: $border-thickness solid $base-color;
+}
+.bar_workspaceButtons:hover {
+  border: $border-thickness solid $border-color;
+}
+
+
+.bar_centerIsland {
+  background-color: $base-color;
+  padding-right:13px;
+  padding-left:13px;
+  border: $border-thickness solid $border-color;
+}
+.bar_batteryModule {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.bar_powerProfileSwitcher{
+  all: unset;
+  border-radius: $border-radius;
+  padding-left: 14px;
+  padding-right: 14px;
+  border: $border-thickness solid $dark-color;
+}
+.bar_powerProfileSwitcher:hover {
+  border: $border-thickness solid $border-color;
+  border-radius: $border-radius;
+
+}
+.bar_batteryPercentageText {
+}
+.bar_clockModule {
+}
+.bar_infoCenterButton {
+  border-radius: $border-radius;
+  padding-left: 10px;
+  padding-right:14px;
+  border: 1px solid rgba(0,0,0,0);
+}
+.bar_infoCenterButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.system-control {
+  background-color: $base-color;
+  padding: 5px;
+  border: $border-thickness solid $border-color;
+}
+
+/* Target the top-level button */
+.system-control_checkbox {
+  padding: 4px;
+
+  check {
+    border: 2px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $base-color;
+    margin-right: 6px;
+    font-size:19px;
+
+    -gtk-icon-source: -gtk-icontheme("window-close-symbolic");
+    color: $red; 
+    -gtk-icon-transform: scale(0.8) rotate(0deg);
+    transition: background-color 150ms ease-in-out,
+                border-color 150ms ease-in-out,
+                -gtk-icon-transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+
+    &:hover {
+      border-color: $contrast-color-light;
+    }
+
+    &:checked {
+      background-color: $contrast-color-light;
+      border-color: $border-color;
+      -gtk-icon-source: -gtk-icontheme("object-select-symbolic"); 
+      color: $green;
+      -gtk-icon-transform: scale(0.8) rotate(360deg);
+      &:hover {
+        border-color: $border-color;
+      }
+      font-family: "JetBrainsMono Nerd Font", "sans-serif";
+    }
+  }
+}
+
+.system-control_adminButtons {
+  margin: 5px;
+  padding: 5px;
+  border-radius: $border-radius;
+  border-right: $border-thickness solid $border-color
+}
+.system-control_text {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  font-size: 13px;
+}
+.system-control_button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: $border-radius;
+  border: 1px solid rgba(0,0,0,0);
+}
+.system-control_button:hover {
+  border: $border-thickness solid $border-color;
+}
+.system-control_resourceInfo {
+  padding: 10px;
+}
+
+
+.bar_rightIsland {
+  background-color: $base-color;
+  border: $border-thickness solid $border-color;
+  padding-right: 0px;
+}
+.bar_mediaPlayer {
+  padding-right: 19px;
+  padding-left: 19px;
+}
+.bar_mediaPlayerButton {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: $border-radius;
+  padding-right: 15px;
+  padding-left: 12px;
+}
+.bar_mediaPlayerButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.bar_audioControl {
+  padding-right: 19px;
+  padding-left: 19px;
+}
+.bar_audioControlButton {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: $border-radius;
+  padding-right: 15px;
+  padding-left: 12px;
+}
+.bar_audioControlButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.bar_bluetoothControl {
+  padding-left: 19px;
+  padding-left: 19px;
+}
+.bar_bluetoothControlButton {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: $border-radius;
+  padding-right: 15px;
+  padding-left: 12px;
+}
+.bar_bluetoothControlButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.bar_networkControl {
+  padding-right: 19px;
+  padding-left: 19px;
+}
+.bar_networkControlButton {
+  border: 1px solid rgba(0,0,0,0);
+  border-radius: $border-radius;
+  padding-right: 15px;
+  padding-left: 12px;
+}
+.bar_networkControlButton:hover {
+  border: $border-thickness solid $border-color;
+}
+
+.media-player_mainBox {
+  background-color: $base-color;
+  padding: 20px;
+  border: $border-thickness solid $border-color
+}
+.media-player_controlBox {
+}
+.media-player_ImageBox {
+  padding-left: 20px;
+}
+.media-player_titleBox {
+  padding-bottom: 15px;
+}
+.slider-vertical {
+  min-height: 100px;
+  background: transparent;
+  padding: 15px;
+
+  trough {
+    background-color: $border-color;
+    border-radius: $border-radius;
+    min-height: 8px;
+    highlight, progress {
+      background-color: #808080;
+      border-radius: $border-radius;
+      min-height: 8px;
+    }
+  }
+  slider {
+    min-width: 12px;
+    min-height: 12px;
+    background-color: white;
+    border-radius: $border-radius;
+  }
+}
+.slider-horizontal {
+  min-width: 100px; 
+  background: transparent;
+  padding: 15px;
+
+
+  trough {
+    background-color: $border-color;
+    border-radius: $border-radius;
+    min-height: 8px;
+    highlight, progress {
+      background-color: #808080;
+      border-radius: $border-radius;
+      min-height: 8px;
+    }
+  }
+  slider {
+    min-width: 12px;
+    min-height: 12px;
+    background-color: white;
+    border-radius: $border-radius;
+  }
+  value {
+  }
+}
+.media-player_controlButton {
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  font-size: 23px;
+}
+
+
+.audio-control_mainBox {
+  background-color: $base-color;
+  padding: 20px;
+  border: $border-thickness solid $border-color;
+}
+.audio-control_appNames {
+  padding-top: 18px;
+}
+
+.audio-control_comboBox {
+  background-color: $base-color;
+  min-height: 40px;
+  border: $border-thickness solid $border-color;
+  border-radius: $border-radius;
+  label {
+    padding-right: 5px;
+  }
+  button {
+    border: $border-thickness solid $border-color;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: $border-radius;
+    min-width: 26px;
+    min-height: 10px;
+  }
+  menu {
+    background-color: $base-color;
+    border: $border-thickness solid $border-color;
+    border-radius: $border-radius;
+    padding: 5px;
+    menuitem {
+      padding: 6px 12px;
+      border-radius: $border-radius;
+      &:hover {
+        background-color: #808080;
+        border-radius: $border-radius;
+        color: white;
+      }
+    }
+  }
+   arrow {
+    min-width: 12px;
+    min-height: 12px;
+    margin-right: 6px;
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); /*Accodring to the docs, i must use a gtk icon https://docs.gtk.org/gtk3/class.ComboBox.html ... 
+    fucking gtk, the content: "xx"; flag does not work here*/
+  }
+  cellview {
+    padding: 0 10px;
+    color: white;
+  }
+}
+
+
+.bluetooth-control_mainContainer {
+  background: $base-color; 
+  padding: 10px;
+  border: $border-thickness solid $border-color;
+}
+.bluetooth-control_button {
+  border-radius: $border-radius;
+  padding-left: 10px;
+  padding-right:14px;
+  border: 1px solid rgba(0,0,0,0);
+}
+.bluetooth-control_button:hover {
+  border: $border-thickness solid $border-color;
+}
+.bluetooth-control_buttonText {
+  font-size: 12px;
+}
+.bluetooth-control_headerButton {
+  border-radius: $border-radius;
+  padding-left: 10px;
+  padding-right:14px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0);
+}
+.bluetooth-control_headerButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.bluetooth-control_headerContainer {
+  border-bottom: $border-thickness solid $border-color;
+  border-radius: $border-radius;
+  margin-bottom: 10px;
+}
+.bluetooth-control_deviceMenu {
+ border-radius: $border-radius;
+ border-left: $border-thickness solid $border-color;
+ padding-left: 10px; 
+ padding-right: 10px;
+}
+
+
+.network-control_mainWidget {
+  background: $base-color;
+  padding: 10px;
+  border: $border-thickness solid $border-color;
+}
+
+.network-control_controlButton {
+  border-radius: $border-radius;
+  padding-left: 14px;
+  padding-right:14px;
+  border: 1px solid rgba(0,0,0,0);
+}
+.network-control_controlButton:hover {
+  border: $border-thickness solid $border-color;
+}
+.network-control_button {
+  border-radius: $border-radius;
+  padding-left: 14px;
+  padding-right:14px;
+  border: 1px solid rgba(0,0,0,0);
+}
+.network-control_button:hover {
+  border: $border-thickness solid $border-color;
+}
+.network-control_topPanel {
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-radius: $border-radius;
+  border-bottom: $border-thickness solid $border-color;
+}
+.network-control_knownNetworksBox {
+  padding-right: 10px;
+  border-radius: $border-radius;
+  border-right: $border-thickness solid $border-color;
+}
+.network-control_unknownNetworksBox {
+  padding-left: 10px;
+}
+.network-control_controlWidget {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  border-radius: $border-radius;
+  border-left: $border-thickness solid $border-color;
+}
+
