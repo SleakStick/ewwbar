@@ -1,48 +1,60 @@
+$base-color: #333333;
+$border-color: rgb(0,0,0,0);
+$border-thickness: 0.8px;
+$contrast-color-light: #cccce6; 
+$contrast-color-dark: #808080; 
+$bright-color: #ffffff;
+$dark-color: #4c4c4c;
+$border-radius: 15px;
+$opacity: 0.6;
+$green: #4c804c;
+$red: #924c4c; 
+$line-color: rgb(102, 102, 102, 0.6);
+$hover-color:rgb(102, 102, 102, 0.7);
+$island-pad-thickness: 3px;
+
+
 * {
   all: unset;
-  color: #ffffff;
+  color: $bright-color;
+  opacity: 1;
   font-family: "JetBrainsMono Nerd Font";
-  border-radius: 0px;
+  border-radius: $border-radius;
   background: none;
   border: none;
   border-top: none;
   padding: 0px;
 }
 
-.bar_window {
-  background-color: #1a1a1a;
-  opacity: 0.5;
-}
 .bar_mainBox {
-  all: unset;
-  background-color: #000000; 
-  border-bottom: 1px solid #eeeeee;
-  border-radius: 0px;
+  background-color: $line-color; 
+
 }
 
+
 .bar_leftIsland {
+  padding-top:$island-pad-thickness;
+  padding-bottom:$island-pad-thickness;
   padding-left: 0px;
-  background-color: #1a1a1a; /*#4c4c4c*/
-  padding-right:15px;
-  border: 1px solid #4c4c4c;
+  background-color: $base-color; /*$border-color*/
+  padding-right:6px;
+  border: $border-thickness solid $border-color;
 }
 .bar_workspaceButtons {
-  all: unset;
-  padding-left: 19px;
-  padding-right: 19px;
-  border-radius: 0px;
-  border: 1px solid rgba(0,0,0,0);
-}
-.bar_workspaceButtons:hover {
-  border: 1px solid #4c4c4c;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: $border-radius;
+  border: $border-thickness solid $base-color;
 }
 
 
 .bar_centerIsland {
-  background-color: #1a1a1a;
-  padding-right:13px;
+  padding-top:$island-pad-thickness;
+  padding-bottom:$island-pad-thickness;
+  background-color: $base-color;
+  padding-right:0px;
   padding-left:13px;
-  border: 1px solid #4c4c4c;
+  border: $border-thickness solid $border-color;
 }
 .bar_batteryModule {
   padding-left: 0px;
@@ -50,33 +62,32 @@
 }
 .bar_powerProfileSwitcher{
   all: unset;
-  border-radius: 0px;  /*TODO Fix button positions for power-profile-switcher and for bar_infoCenterButtod*/
-  padding-left: 14px;
-  padding-right: 14px;
-  border: 1px solid rgba(0,0,0,0);
+  border-radius: $border-radius;
+  padding-left: 8px;
+  padding-right: 11px;
 }
-.bar_powerProfileSwitcher:hover {
-  border: 1px solid #4c4c4c;
-  border-radius: 0px;
+.bar_powerProfileSwitcher:hover{
+  background-color: $hover-color;
+}
 
-}
 .bar_batteryPercentageText {
 }
 .bar_clockModule {
 }
 .bar_infoCenterButton {
-  border-radius: 0px;
+  border-radius: $border-radius;
   padding-left: 10px;
   padding-right:14px;
   border: 1px solid rgba(0,0,0,0);
 }
 .bar_infoCenterButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .system-control {
-  background-color: #1a1a1a;
+  background-color: $base-color;
   padding: 5px;
-  border: 1px solid #4c4c4c;
+  border: $border-thickness solid $border-color;
 }
 
 /* Target the top-level button */
@@ -84,14 +95,14 @@
   padding: 4px;
 
   check {
-    border: 2px solid #4c4c4c;
-    border-radius: 0px;
-    background-color: #1a1a1a;
+    border: 2px solid $border-color;
+    border-radius: $border-radius;
+    background-color: $base-color;
     margin-right: 6px;
     font-size:19px;
 
     -gtk-icon-source: -gtk-icontheme("window-close-symbolic");
-    color: #f38ba8; 
+    color: $red; 
     -gtk-icon-transform: scale(0.8) rotate(0deg);
     transition: background-color 150ms ease-in-out,
                 border-color 150ms ease-in-out,
@@ -99,17 +110,17 @@
 
 
     &:hover {
-      border-color: #6d6d6d;
+      border-color: $contrast-color-light;
     }
 
     &:checked {
-      background-color: #6d6d6d;
-      border-color: #6d6d6d;
+      background-color: $contrast-color-light;
+      border-color: $border-color;
       -gtk-icon-source: -gtk-icontheme("object-select-symbolic"); 
-      color: #669a66;
-      -gtk-icon-transform: scale(1.2) rotate(360deg);
+      color: $green;
+      -gtk-icon-transform: scale(0.8) rotate(360deg);
       &:hover {
-        border-color: #4c4c4c;
+        border-color: $border-color;
       }
       font-family: "JetBrainsMono Nerd Font", "sans-serif";
     }
@@ -119,8 +130,8 @@
 .system-control_adminButtons {
   margin: 5px;
   padding: 5px;
-  border-radius: 0px;
-  border-right: 1px solid #4c4c4c
+  border-radius: $border-radius;
+  border-right: $border-thickness solid $border-color
 }
 .system-control_text {
   padding-top: 7px;
@@ -132,79 +143,77 @@
   padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 0px;
+  border-radius: $border-radius;
   border: 1px solid rgba(0,0,0,0);
 }
 .system-control_button:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .system-control_resourceInfo {
-  padding: 10px;
+  padding: 0px;
 }
 
 
 .bar_rightIsland {
-  background-color: #1a1a1a;
-  border: 1px solid #4c4c4c;
-  padding-right: 0px;
+  background-color: $base-color;
+  border: $border-thickness solid $border-color;
+  padding-left: 7;
+  padding-right: 7;
+  padding-top:$island-pad-thickness;
+  padding-bottom: $island-pad-thickness;
 }
-.bar_mediaPlayer {
-  padding-right: 19px;
-  padding-left: 19px;
-}
+
 .bar_mediaPlayerButton {
   border: 1px solid rgba(0,0,0,0);
-  border-radius: 0px;
-  padding-right: 15px;
-  padding-left: 12px;
+  border-radius: $border-radius;
+  padding-left: 7px;
+  padding-right: 11px;
 }
 .bar_mediaPlayerButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
-.bar_audioControl {
-  padding-right: 19px;
-  padding-left: 19px;
-}
+
 .bar_audioControlButton {
   border: 1px solid rgba(0,0,0,0);
-  border-radius: 0px;
-  padding-right: 15px;
-  padding-left: 12px;
+  border-radius: $border-radius;
+  padding-right: 10px;
+  padding-left: 9px;
 }
 .bar_audioControlButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .bar_bluetoothControl {
-  padding-left: 19px;
-  padding-left: 19px;
+
 }
 .bar_bluetoothControlButton {
   border: 1px solid rgba(0,0,0,0);
-  border-radius: 0px;
-  padding-right: 15px;
-  padding-left: 12px;
+  border-radius: $border-radius;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .bar_bluetoothControlButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
-.bar_networkControl {
-  padding-right: 19px;
-  padding-left: 19px;
-}
+
 .bar_networkControlButton {
   border: 1px solid rgba(0,0,0,0);
-  border-radius: 0px;
-  padding-right: 15px;
-  padding-left: 12px;
+  border-radius: $border-radius;
+  padding-right: 16px;
+  padding-left: 10px;
 }
 .bar_networkControlButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 
 .media-player_mainBox {
-  background-color: #1a1a1a;
+  background-color: $base-color;
   padding: 20px;
-  border: 1px solid #4c4c4c
+  border: $border-thickness solid $border-color
 }
 .media-player_controlBox {
 }
@@ -220,12 +229,12 @@
   padding: 15px;
 
   trough {
-    background-color: #4c4c4c;
-    border-radius: 5px;
+    background-color: $border-color;
+    border-radius: $border-radius;
     min-height: 8px;
     highlight, progress {
       background-color: #808080;
-      border-radius: 5px;
+      border-radius: $border-radius;
       min-height: 8px;
     }
   }
@@ -233,7 +242,7 @@
     min-width: 12px;
     min-height: 12px;
     background-color: white;
-    border-radius: 50%;
+    border-radius: $border-radius;
   }
 }
 .slider-horizontal {
@@ -243,12 +252,12 @@
 
 
   trough {
-    background-color: #4c4c4c;
-    border-radius: 5px;
+    background-color: $border-color;
+    border-radius: $border-radius;
     min-height: 8px;
     highlight, progress {
       background-color: #808080;
-      border-radius: 5px;
+      border-radius: $border-radius;
       min-height: 8px;
     }
   }
@@ -256,7 +265,7 @@
     min-width: 12px;
     min-height: 12px;
     background-color: white;
-    border-radius: 50%;
+    border-radius: $border-radius;
   }
   value {
   }
@@ -270,41 +279,41 @@
 
 
 .audio-control_mainBox {
-  background-color: #1a1a1a;
-  padding: 20px;
-  border: 1px solid #4c4c4c;
+  background-color: $base-color;
+  padding: 10px;
+  border: $border-thickness solid $border-color;
 }
 .audio-control_appNames {
   padding-top: 18px;
 }
 
 .audio-control_comboBox {
-  background-color: #1a1a1a;
+  background-color: $base-color;
   min-height: 40px;
-  border: 1px solid #4c4c4c;
-  border-radius: 0px;
+  border: $border-thickness solid $border-color;
+  border-radius: $border-radius;
   label {
     padding-right: 5px;
   }
   button {
-    border: 1px solid #4c4c4c;
+    border: $border-thickness solid $border-color;
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 0px;
+    border-radius: $border-radius;
     min-width: 26px;
     min-height: 10px;
   }
   menu {
-    background-color: #1a1a1a;
-    border: 1px solid #4c4c4c;
-    border-radius: 0px;
+    background-color: $base-color;
+    border: $border-thickness solid $border-color;
+    border-radius: $border-radius;
     padding: 5px;
     menuitem {
       padding: 6px 12px;
-      border-radius: 3px;
+      border-radius: $border-radius;
       &:hover {
         background-color: #808080;
-        border-radius: 0px;
+        border-radius: $border-radius;
         color: white;
       }
     }
@@ -324,79 +333,84 @@
 
 
 .bluetooth-control_mainContainer {
-  background: #1a1a1a; 
+  background: $base-color; 
   padding: 10px;
-  border: 1px solid #4c4c4c;
+  border: $border-thickness solid $border-color;
 }
 .bluetooth-control_button {
-  border-radius: 0px;
+  border-radius: $border-radius;
   padding-left: 10px;
   padding-right:14px;
   border: 1px solid rgba(0,0,0,0);
 }
 .bluetooth-control_button:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .bluetooth-control_buttonText {
   font-size: 12px;
 }
 .bluetooth-control_headerButton {
-  border-radius: 0px;
+  border-radius: $border-radius;
   padding-left: 10px;
   padding-right:14px;
   margin-bottom: 10px;
   border: 1px solid rgba(0,0,0,0);
 }
 .bluetooth-control_headerButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+
+  border: $border-thickness solid $border-color;
 }
 .bluetooth-control_headerContainer {
-  border-bottom: 1px solid #4c4c4c;
-  border-radius: 0px;
+  border-bottom: $border-thickness solid $border-color;
+  border-radius: $border-radius;
   margin-bottom: 10px;
 }
 .bluetooth-control_deviceMenu {
- border-radius: 0px;
- border-left: 1px solid #4c4c4c;
+ border-radius: $border-radius;
+ border-left: $border-thickness solid $border-color;
  padding-left: 10px; 
  padding-right: 10px;
 }
 
 
 .network-control_mainWidget {
-  background: #1a1a1a;
+  background: $base-color;
   padding: 10px;
-  border: 1px solid #4c4c4c;
+  border: $border-thickness solid $border-color;
 }
 
 .network-control_controlButton {
-  border-radius: 0px;
+  border-radius: $border-radius;
   padding-left: 14px;
   padding-right:14px;
   border: 1px solid rgba(0,0,0,0);
 }
 .network-control_controlButton:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .network-control_button {
-  border-radius: 0px;
+  border-radius: $border-radius;
   padding-left: 14px;
   padding-right:14px;
   border: 1px solid rgba(0,0,0,0);
 }
 .network-control_button:hover {
-  border: 1px solid #4c4c4c;
+  background-color: $hover-color;
+  border: $border-thickness solid $border-color;
 }
 .network-control_topPanel {
   padding-bottom: 5px;
   margin-bottom: 5px;
-  border-radius: 0px;
-  border-bottom: 1px solid #4c4c4c;
+  border-radius: $border-radius;
+  border-bottom: $border-thickness solid $border-color;
 }
 .network-control_knownNetworksBox {
   padding-right: 10px;
-  border-radius: 0px;
-  border-right: 1px solid #4c4c4c;
+  border-radius: $border-radius;
+  border-right: $border-thickness solid $border-color;
 }
 .network-control_unknownNetworksBox {
   padding-left: 10px;
@@ -405,7 +419,7 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 10px;
-  border-radius: 0px;
-  border-left: 1px solid #4c4c4c;
+  border-radius: $border-radius;
+  border-left: $border-thickness solid $border-color;
 }
 
