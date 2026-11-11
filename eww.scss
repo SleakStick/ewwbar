@@ -5,18 +5,23 @@
   border-radius: 0px;
   background: none;
   border: none;
+  border-top: none;
+  padding: 0px;
 }
 
 .bar_window {
-  background: none;
+  background-color: #1a1a1a;
+  opacity: 0.5;
 }
 .bar_mainBox {
   all: unset;
-  background: none;
+  background-color: #000000; 
+  border-bottom: 1px solid #eeeeee;
+  border-radius: 0px;
 }
 
 .bar_leftIsland {
-  padding-left: 15px;
+  padding-left: 0px;
   background-color: #1a1a1a; /*#4c4c4c*/
   padding-right:15px;
   border: 1px solid #4c4c4c;
@@ -141,7 +146,7 @@
 .bar_rightIsland {
   background-color: #1a1a1a;
   border: 1px solid #4c4c4c;
-  padding-right: 7px;
+  padding-right: 0px;
 }
 .bar_mediaPlayer {
   padding-right: 19px;

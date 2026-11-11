@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 declare -A NEXT_POWER_PROFILE_DICT=(["power-saver"]="balanced" ["balanced"]="performance" ["performance"]="power-saver")
-echo "declared dict"
-POWER_PROFILE=$(sudo -n powerprofilesctl get)
-echo $POWER_PROFILE
-sudo -n powerprofilesctl set ${NEXT_POWER_PROFILE_DICT[$POWER_PROFILE]}
-echo "set the power profile to "
-echo $(sudo -n powerprofilesctl get)
+POWER_PROFILE=$(powerprofilesctl get)
+powerprofilesctl set ${NEXT_POWER_PROFILE_DICT[$POWER_PROFILE]}
+echo "Set the power profile to $(powerprofilesctl get)"
 eww update bar_batteryInfo="$(~/.config/eww/scripts/battery-info.sh)" 
-echo "updated the batteryInfo variable "
 exit

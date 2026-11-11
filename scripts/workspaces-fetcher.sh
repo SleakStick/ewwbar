@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Adjust the icons for different applications here.
-declare -A SUBSTRING_LIST=(["firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["kitty"]="" ["spotify"]= ["Evince"]="" ["sioyek"]="" ["mpv"]="" ["Nautilus"]="󰉋")
+declare -A SUBSTRING_LIST=(["firefox"]=󰈹 ["YouTube"]="󰗃" ["tmux"]= ["kitty"]="" ["spotify"]= ["Evince"]="" ["sioyek"]="" ["mpv"]="" ["Nautilus"]="󰉋" ["CAD"]="" ["prusa"]="")
 
 declare -a WORKSPACE_BUTTONS
 

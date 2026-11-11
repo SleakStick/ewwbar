@@ -49,7 +49,9 @@ poll_devices () {
             # Use awk to get everything after the label "name:"
             name=$(echo "$info" | grep 'Name:' | sed 's/.*Name: //')
             paired=$(echo "$info" | grep -q 'Paired: yes' && echo true || echo false)
-            connected=$(echo "$info" | grep -q 'Connected: yes' && echo true || echo false)
+            connected=$(echo "$info" | grep -q 'Connected: yes' && echo "true" || echo "false")
+            battery=$(echo "$info" | grep "Battery Percentage" | awk -F'[()]' '{print $2}')
+            #echo $mac $connected
             if [[ -z "$name" ]]; then
                 name=$(echo "$line" | cut -d' ' -f3-)
             fi
@@ -64,7 +66,8 @@ poll_devices () {
               --arg mac "$mac" \
               --argjson paired "$paired" \
               --argjson connected "$connected" \
-              '{name: $name, mac: $mac, paired: $paired, connected: $connected}')
+              --arg battery "$battery"  \
+              '{name: $name, mac: $mac, paired: $paired, connected: $connected, battery: $battery}')
             
             if [[ $connected == "true" ]]; then
                 connected_devices=$(jq --argjson obj "$device_obj" '. + [$obj]' <<< "$connected_devices")
