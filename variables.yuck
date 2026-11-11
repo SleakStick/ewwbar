@@ -1,6 +1,9 @@
-(defvar monitor 0)
+(defvar show_bar "false")
+(defpoll monitors :interval "15s" :initial "[]"
+       "hyprctl -j monitors | jq -c '[.[].name]'")
 (deflisten media-player_artPath :initial "./resources/placeholder.jpg"
   "./scripts/image-fetcher.sh")
+(defvar force_show_bar "false")
 (defpoll media-player_currentVolume :interval "1s" :initial 100
 "pactl --format=json list sinks | jq --arg key 'front-left' --arg default_name $(pactl get-default-sink) '.[] | select(.name == $default_name) | .volume.[$key].value_percent' | sed 's/[^0-9]//g'")
 (defpoll media-player_currentTitle :interval "1s"
