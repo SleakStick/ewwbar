@@ -7,60 +7,75 @@
 (include "./modules/system-control.yuck")
 
 
-(defwindow media-player_Window
-           :monitor 0
-           :geometry (geometry :x "1%"
+(defwindow bar_Window
+           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+           :geometry (geometry :x "0%"
                                :y "0%"
-                               :width "20%"
-                               :height "20%"
+                               :width "40%"
+                               :height "2%"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :side "top" :distance "0px")
+           :windowtype "dock"
+           :exclusive false
+           :focusable false
+           :wm-ignore true
+           
+  (eventbox :onhover "eww update show_bar=true"
+            :onhoverlost "eww update show_bar=false"
+    (box :orientation "v" 
+         :space-evenly false
+      (revealer :reveal "${show_bar ? true : (force_show_bar ? true : false)}"
+                :transition "slidedown"
+                :duration 200
+        (bar_mainWidget))
+    )))
+
+
+(defwindow hideBar_Window
+      :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+      :geometry (geometry :x "0%"
+                          :y "0%"
+                          :width "100%"
+                          :height "40%"
+                          :anchor "bottom center")
+      :stacking "fg"
+      :windowtype "dock"
+      :focusable false
+      :wm-ignore true
+      :exclusive false
+      (eventbox :onhover "eww update force_show_bar='false' && eww close media-player_Window audio-control_Window bluetooth-control_Window network-control_Window system-control_Window hideBar_Window"))
+
+(defwindow media-player_Window
+           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+           :geometry (geometry :x "26%"
+                               :y "3%"
+                               :width "15%"
+                               :height "15%"
                                :anchor "top right")
            :stacking "fg"
            :windowtype "normal"
            :wm-ignore true
-           (media-player_mainWidget))
+              (media-player_mainWidget))
 
-(defwindow bar_Window
-           :monitor 0
-           :geometry (geometry :x "0%"
-                               :y "0%"
-                               :width "98%"
-                               :height "3%"
-                               :anchor "top center")
-           :stacking "fg"
-           :windowtype "dock"
-           :exclusive true
-           :focusable false
-           :wm-ignore false
-           (bar_mainWidget))
 
 (defwindow audio-control_Window
-          :monitor 0
-          :geometry (geometry :x "1%"
-                              :y "0%"
-                              :width "20%"
-                              :height "15%"
+          :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+          :geometry (geometry :x "30%"
+                              :y "3%"
+                              :width "15%"
+                              :height "10%"
                               :anchor "top right")
           :stacking "fg"
           :wm-ignore true
           :windowtype "normal"
           (audio-control_mainWidget))
 
-(defwindow network-control_Window
-          :monitor 0
-          :geometry (geometry :x "1%"
-                              :y "0%"
-                              :width "25%"
-                              :height "20%"
-                              :anchor "top right")
-          :stacking "fg"
-          :wm-ignore true
-          :windowtype "normal"
-          (network-control_mainWidget))
 
 (defwindow bluetooth-control_Window
-          :monitor 0
-          :geometry (geometry :x "1%"
-                              :y "0%"
+          :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+          :geometry (geometry :x "30%"
+                              :y "3%"
                               :width "25%"
                               :height "15%"
                               :anchor "top right")
@@ -70,9 +85,9 @@
           (bluetooth-control_mainWidget))
 
 (defwindow network-control_Window
-          :monitor 0
-          :geometry (geometry :x "1%"
-                              :y "0%"
+          :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+          :geometry (geometry :x "30%"
+                              :y "3%"
                               :width "25%"
                               :height "18%"
                               :anchor "top right")
@@ -81,10 +96,11 @@
           :windowtype "normal"
           :focusable true
           (network-control_mainWidget))
+
 (defwindow system-control_Window
-          :monitor 0
-          :geometry (geometry :y "0%"
-                              :width "15%"
+          :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+          :geometry (geometry :y "3%"
+                              :width "8%"
                               :height "6%"
                               :anchor "top center")
           :stacking "fg"
