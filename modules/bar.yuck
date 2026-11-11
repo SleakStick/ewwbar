@@ -25,8 +25,8 @@
   (box :orientation "horizontal"
        :class "bar_batteryModule"
        :halign "start"
-       (label :halign "start" :class "bar_batteryPercentageText" :text "${bar_batteryInfo[0].percentage}% ${bar_batteryInfo[0].battery_percentage_icon} ")
-       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "./scripts/power-profiles-switcher.sh" :timeout "1000ms"
+       (label :halign "start" :class "bar_batteryPercentageText" :text "${bar_batteryInfo[0].percentage}%")
+       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "./scripts/power-profiles-switcher.sh && eww update force_show_bar='true' && eww open hideBar_Window" :timeout "1000ms"
                (label :text "${bar_batteryInfo[0].power_profile_icon}"))))
 (defwidget bar_clockModule[]
   (box :orientation "horizontal"
@@ -36,7 +36,7 @@
   (box :orientation "horizontal"
        :halign "end"
        :class "bar_infoCenterButton"
-       (button :class "bar_infoCenterButton" :halign "center" :onclick "eww open --toggle system-control_Window"
+       (button :class "bar_infoCenterButton" :halign "center" :onclick "eww open --toggle system-control_Window && eww update force_show_bar='true' && eww open hideBar_Window"
                (label :text ""))))
 
 
@@ -54,23 +54,23 @@
             (box :orientation "horizontal"
                  :halign "center"
                  :class "bar_mediaPlayer"
-                 (button :class "bar_mediaPlayerButton" :onclick "eww open --toggle media-player_Window && eww close bluetooth-control_Window audio-control_Window network-control_Window"
+                 (button :class "bar_mediaPlayerButton" :onclick "eww open --toggle media-player_Window && eww update force_show_bar='true' && eww open hideBar_Window"
                          (label :text "")))))
 (defwidget bar_audioControl[]
   (box :orientation "horizontal"
        :class "bar_audioControl"
        :halign "center"
-       (button :class "bar_audioControlButton" :onclick "eww open --toggle audio-control_Window && eww close bluetooth-control_Window media-player_Window " (label :text "${bar_audioControlIcon}"))))
+       (button :class "bar_audioControlButton" :onclick "eww open --toggle audio-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text "${bar_audioControlIcon}"))))
 (defwidget bar_bluetoothControl[]
   (box :orientation "horizontal"
        :class "bar_bluetoothControl"
        :halign "center"
-       (button :class "bar_bluetoothControlButton" :onclick "eww open --toggle bluetooth-control_Window && eww close audio-control_Window media-player_Window" (label :text "${bar_bluetoothIcon}"))))
+       (button :class "bar_bluetoothControlButton" :onclick "eww open --toggle bluetooth-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text "${bar_bluetoothIcon}"))))
 (defwidget bar_networkControl[]
   (box :orientation "horizontal"
        :class "bar_networkControl"
        :halign "center"
-       (button :class "bar_networkControlButton" :onclick "eww open --toggle network-control_Window && eww close bluetooth-control_Window audio-control_Window media-player_Window" (label :text ""))))
+       (button :class "bar_networkControlButton" :onclick "eww open --toggle network-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text ""))))
 
 
 
