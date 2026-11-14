@@ -1,8 +1,3 @@
-(defvar audio-control_up "false")
-(defvar media-player_up "false")
-(defvar system-control_up "false")
-(defvar bluetooth-control_up "false")
-(defvar network-control_up "false")
 (defvar window_up "false")
 (defvar show_bar "false")
 (defpoll monitors :interval "15s" :initial "[]"
@@ -37,8 +32,10 @@
   "./scripts/bluetooth-control.sh poll_controller") 
 (defpoll bluetooth-control_scan_button :initial "Scan" :interval "200ms"
          "bluetoothctl show | grep -q 'Discovering: yes' && echo Scanning... || echo Scan")
+(defvar bluetooth-control_deviceKnown false)
 (defvar bluetooth-control_menuVisible false)
 (defvar bluetooth-control_selectedDevice "{}")
+(defvar bluetooth-control_device_menu_button "Connect")
 
 (defpoll network-control_knownNetworks :interval "24h" :initial '["err"]'
   "./scripts/network-control.sh known_networks")
