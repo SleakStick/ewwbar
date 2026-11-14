@@ -14,7 +14,7 @@
                                :width "40%"
                                :height "2%"
                                :anchor "top center")
-           :stacking "fg"
+           :stacking "overlay"
            :reserve (struts :side "top" :distance "0px")
            :windowtype "dock"
            :exclusive false
@@ -27,33 +27,32 @@
          :space-evenly false
       (revealer :reveal "${show_bar ? true : (force_show_bar ? true : false)}"
                 :transition "slidedown"
-                :duration 200
+                :duration 300
         (bar_mainWidget))
     )))
-
 
 (defwindow hideBar_Window
       :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
       :geometry (geometry :x "0%"
                           :y "0%"
                           :width "100%"
-                          :height "40%"
+                          :height "60%"
                           :anchor "bottom center")
       :stacking "fg"
       :windowtype "dock"
       :focusable false
       :wm-ignore true
       :exclusive false
-      (eventbox :onhover "eww update force_show_bar='false' && eww close media-player_Window audio-control_Window bluetooth-control_Window network-control_Window system-control_Window hideBar_Window"))
+      (eventbox :onhover "eww update force_show_bar='false' && eww close media-player_Window audio-control_Window bluetooth-control_Window network-control_Window system-control_Window hideBar_Window bluetooth-control_device_Window"))
 
 (defwindow media-player_Window
            :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
            :geometry (geometry :x "26%"
-                               :y "3%"
+                               :y "4%"
                                :width "15%"
                                :height "15%"
                                :anchor "top right")
-           :stacking "fg"
+           :stacking "overlay"
            :windowtype "normal"
            :wm-ignore true
               (media-player_mainWidget))
@@ -62,11 +61,11 @@
 (defwindow audio-control_Window
           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
           :geometry (geometry :x "30%"
-                              :y "3%"
+                              :y "4%"
                               :width "15%"
                               :height "10%"
                               :anchor "top right")
-          :stacking "fg"
+          :stacking "overlay"
           :wm-ignore true
           :windowtype "normal"
           (audio-control_mainWidget))
@@ -75,35 +74,46 @@
 (defwindow bluetooth-control_Window
           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
           :geometry (geometry :x "30%"
-                              :y "3%"
+                              :y "4%"
                               :width "25%"
                               :height "15%"
                               :anchor "top right")
-          :stacking "fg"
+          :stacking "overlay"
           :wm-ignore true
           :windowtype "normal"
           (bluetooth-control_mainWidget))
+(defwindow bluetooth-control_device_Window
+           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+          :geometry (geometry :x "35%"
+                              :y "10%"
+                              :width "9%"
+                              :height "6%"
+                              :anchor "top right")
+          :stacking "overlay"
+          :wm-ignore true
+          :windowtype "normal"
+          (bluetooth-control_deviceMenu :device "${bluetooth-control_selectedDevice}"))
 
 (defwindow network-control_Window
-          :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
+           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
           :geometry (geometry :x "30%"
-                              :y "3%"
+                              :y "4%"
                               :width "25%"
                               :height "18%"
                               :anchor "top right")
-          :stacking "fg"
+          :stacking "overlay"
+          :focusable "ondemand"
           :wm-ignore true
           :windowtype "normal"
-          :focusable true
           (network-control_mainWidget))
 
 (defwindow system-control_Window
           :monitor '["HDMI-A-1", "DP-3", "eDP-1"]'
-          :geometry (geometry :y "3%"
+          :geometry (geometry :y "4%"
                               :width "8%"
                               :height "6%"
                               :anchor "top center")
-          :stacking "fg"
+          :stacking "overlay"
           :wm-ignore true
           :windowtype "normal"
           (system-control_mainWidget))
