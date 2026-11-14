@@ -117,6 +117,21 @@ CONTROLLER_POLL="$(poll_controller)"
 eww update bluetooth-control_controllerPoll="$CONTROLLER_POLL"
 }
 
+connect_unknown_device () {
+MAC=$1
+{
+    echo "agent NoInputNoOutput"
+    echo "default-agent"
+    echo "power on"
+    echo "trust $MAC"
+    echo "pair $MAC"
+    echo "connect $MAC"
+    
+    sleep 10
+    echo "exit"
+} | bluetoothctl 
+}
+
 
 if [[ "$1" == "toggle_power" ]]; then
   toggle_power
@@ -138,12 +153,13 @@ fi
 device=""
 action=""
 
-while getopts "m:cdf" opt; do
+while getopts "m:cdfa" opt; do
     case $opt in
         m) device=$OPTARG ;;
         c) action="connect" ;;
         d) action="disconnect" ;;
         f) action="forget" ;;
+        a) action="add" ;;
         \?) echo "Invalid option -$OPTARG" >&2; exit 1 ;;
         :) echo "Option -$OPTARG requires an argument." >&2; exit 1 ;;
     esac
@@ -154,13 +170,27 @@ name=$(echo "$device" | jq -r '.name')
 
 case $action in
     connect)
-        bluetoothctl connect "$mac" & eww update bluetooth-control_selectedDevice="$(echo "$device" | jq -c '.connected = true')"
+        eww update bluetooth-control_device_menu_button='Connecting..'
+        bluetoothctl connect "$mac" & eww update bluetooth-control_selectedDevice="$(echo '$device' | jq -c '.connected = true')"
+        BG_PID=$!
         ;;
     disconnect)
-        bluetoothctl disconnect "$mac" & eww update bluetooth-control_selectedDevice ="$(echo "$device" | jq -c '.connected = false')"
+        eww update bluetooth-control_device_menu_button='Disconnecting...'
+        bluetoothctl disconnect "$mac" & eww update bluetooth-control_selectedDevice="$(echo '$device' | jq -c '.connected = false')"
+        BG_PID=$!
         ;;
     forget)
-        bluetoothctl remove $mac & eww update bluetooth-control_selectedDevice ="$(echo "$device" | jq -c '.connected = false')"
+        bluetoothctl remove $mac & eww update bluetooth-control_selectedDevice="$(echo '$device' | jq -c '.connected = false')"
+        BG_PID=$!
         ;;
+    add)
+        eww update bluetooth-control_device_menu_button='Connecting..'
+        python ./scripts/bluetooth-control_addDevice.py "$mac" 1
+        BG_PID=$!
+      ;;
 esac
 
+wait $BG_PID
+bt_poll="$(./scripts/bluetooth-control.sh poll_devices)"
+eww update bluetooth-control_devicesPoll="$bt_poll"
+eww close bluetooth-control_device_Window
