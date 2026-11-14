@@ -27,3 +27,4 @@ This bar features custom icons for your workspaces, which adjust depending on th
 2. Fullscreen layout of system controls
 3. More inter-system compatibility
 4. Fleshing out the network management interface
+5. Adapting the dependencies for nix Home Manager
