@@ -1,15 +1,16 @@
 $base-color: #333333;
+$base-color-transparent: rgb(51, 51, 51, 0.7);
 $border-color: rgb(0,0,0,0);
 $border-thickness: 0.8px;
-$contrast-color-light: #cccce6; 
-$contrast-color-dark: #808080; 
+$contrast-color-light: #99ae99; 
+$contrast-color-dark: #1a331a; 
 $bright-color: #ffffff;
 $dark-color: #4c4c4c;
 $border-radius: 15px;
 $opacity: 0.6;
 $green: #4c804c;
 $red: #924c4c; 
-$line-color: rgb(102, 102, 102, 0.6);
+$line-color: rgb(102, 102, 102, 0.5);
 $hover-color:rgb(102, 102, 102, 0.7);
 $island-pad-thickness: 3px;
 
@@ -28,7 +29,7 @@ $island-pad-thickness: 3px;
 
 .bar_mainBox {
   background-color: $line-color; 
-
+  margin-top: 4px
 }
 
 
@@ -85,7 +86,7 @@ $island-pad-thickness: 3px;
   border: $border-thickness solid $border-color;
 }
 .system-control {
-  background-color: $base-color;
+  background-color: $line-color;
   padding: 5px;
   border: $border-thickness solid $border-color;
 }
@@ -103,7 +104,7 @@ $island-pad-thickness: 3px;
 
     -gtk-icon-source: -gtk-icontheme("window-close-symbolic");
     color: $red; 
-    -gtk-icon-transform: scale(0.8) rotate(0deg);
+    -gtk-icon-transform: scale(1) rotate(0deg);
     transition: background-color 150ms ease-in-out,
                 border-color 150ms ease-in-out,
                 -gtk-icon-transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -118,7 +119,7 @@ $island-pad-thickness: 3px;
       border-color: $border-color;
       -gtk-icon-source: -gtk-icontheme("object-select-symbolic"); 
       color: $green;
-      -gtk-icon-transform: scale(0.8) rotate(360deg);
+      -gtk-icon-transform: scale(1) rotate(360deg);
       &:hover {
         border-color: $border-color;
       }
@@ -129,9 +130,11 @@ $island-pad-thickness: 3px;
 
 .system-control_adminButtons {
   margin: 5px;
+  margin-right: 7px;
   padding: 5px;
   border-radius: $border-radius;
-  border-right: $border-thickness solid $border-color
+  border-right: $border-thickness solid $border-color;
+  background-color: $contrast-color-dark;
 }
 .system-control_text {
   padding-top: 7px;
@@ -147,7 +150,7 @@ $island-pad-thickness: 3px;
   border: 1px solid rgba(0,0,0,0);
 }
 .system-control_button:hover {
-  background-color: $hover-color;
+  background-color: $contrast-color-light;
   border: $border-thickness solid $border-color;
 }
 .system-control_resourceInfo {
@@ -211,7 +214,7 @@ $island-pad-thickness: 3px;
 }
 
 .media-player_mainBox {
-  background-color: $base-color;
+  background-color: $line-color;
   padding: 20px;
   border: $border-thickness solid $border-color
 }
@@ -229,11 +232,11 @@ $island-pad-thickness: 3px;
   padding: 15px;
 
   trough {
-    background-color: $border-color;
+    background-color: $contrast-color-dark;
     border-radius: $border-radius;
     min-height: 8px;
     highlight, progress {
-      background-color: #808080;
+      background-color: $contrast-color-light;
       border-radius: $border-radius;
       min-height: 8px;
     }
@@ -252,11 +255,11 @@ $island-pad-thickness: 3px;
 
 
   trough {
-    background-color: $border-color;
+    background-color: $contrast-color-dark;
     border-radius: $border-radius;
     min-height: 8px;
     highlight, progress {
-      background-color: #808080;
+      background-color: $contrast-color-light;
       border-radius: $border-radius;
       min-height: 8px;
     }
@@ -277,9 +280,11 @@ $island-pad-thickness: 3px;
   font-size: 23px;
 }
 
+.audio-control_appsWidget {
+}
 
 .audio-control_mainBox {
-  background-color: $base-color;
+  background-color: $line-color;
   padding: 10px;
   border: $border-thickness solid $border-color;
 }
@@ -294,6 +299,7 @@ $island-pad-thickness: 3px;
   border-radius: $border-radius;
   label {
     padding-right: 5px;
+    padding-left: 15px;
   }
   button {
     border: $border-thickness solid $border-color;
@@ -304,17 +310,17 @@ $island-pad-thickness: 3px;
     min-height: 10px;
   }
   menu {
-    background-color: $base-color;
+    background-color: $contrast-color-light;
     border: $border-thickness solid $border-color;
-    border-radius: $border-radius;
+    border-radius: $border-radius; 
     padding: 5px;
     menuitem {
       padding: 6px 12px;
       border-radius: $border-radius;
       &:hover {
-        background-color: #808080;
+        background-color: $contrast-color-dark;
         border-radius: $border-radius;
-        color: white;
+        color: $bright-color;
       }
     }
   }
@@ -327,25 +333,30 @@ $island-pad-thickness: 3px;
   }
   cellview {
     padding: 0 10px;
-    color: white;
+    color: $bright-color;
   }
 }
 
 
 .bluetooth-control_mainContainer {
-  background: $base-color; 
-  padding: 10px;
+  background: $line-color; 
+  padding: 7px;
   border: $border-thickness solid $border-color;
+}
+.bluetooth-control_infoContainer {
+  background: $base-color;
+}
+.bluetooth-control_contentContainer {
+  margin: 12px;
 }
 .bluetooth-control_button {
   border-radius: $border-radius;
   padding-left: 10px;
   padding-right:14px;
-  border: 1px solid rgba(0,0,0,0);
+  padding-top: 2px;
 }
 .bluetooth-control_button:hover {
   background-color: $hover-color;
-  border: $border-thickness solid $border-color;
 }
 .bluetooth-control_buttonText {
   font-size: 12px;
@@ -354,25 +365,49 @@ $island-pad-thickness: 3px;
   border-radius: $border-radius;
   padding-left: 10px;
   padding-right:14px;
-  margin-bottom: 10px;
+  margin:4px;
+  padding-top:6px;
   border: 1px solid rgba(0,0,0,0);
 }
 .bluetooth-control_headerButton:hover {
-  background-color: $hover-color;
-
+  background-color: $contrast-color-light;
   border: $border-thickness solid $border-color;
+  color: $dark-color;
 }
 .bluetooth-control_headerContainer {
   border-bottom: $border-thickness solid $border-color;
   border-radius: $border-radius;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  background-color: $contrast-color-dark;
+}
+.bluetooth-control_connectedDevices{
+  padding: 4px;
+  background-color: $base-color;
+  margin-bottom:3px;
+}
+.bluetooth-control_pairedDevices{
+  padding: 4px;
+  background-color: $base-color;
+  margin-bottom:3px;
+}
+.bluetooth-control_nearbyDevices{
+  padding: 4px;
+  background-color: $base-color;
 }
 .bluetooth-control_deviceMenu {
  border-radius: $border-radius;
  border-left: $border-thickness solid $border-color;
+ background-color: $line-color;
+ padding: 10px;
+ 
+}
+.bluetooth-control_selectedDeviceBox{
+  background-color: $contrast-color-dark;
  padding-left: 10px; 
  padding-right: 10px;
 }
+
 
 
 .network-control_mainWidget {
