@@ -36,7 +36,7 @@
   (box :orientation "horizontal"
        :halign "end"
        :class "bar_infoCenterButton"
-       (button :class "bar_infoCenterButton" :halign "center" :onclick "eww open --toggle system-control_Window && eww update force_show_bar='true' && eww open hideBar_Window"
+       (button :class "bar_infoCenterButton" :halign "center" :onclick "eww update force_show_bar='true' && eww open hideBar_Window && eww open --toggle system-control_Window"
                (label :text ""))))
 
 
@@ -54,18 +54,18 @@
             (box :orientation "horizontal"
                  :halign "center"
                  :class "bar_mediaPlayer"
-                 (button :class "bar_mediaPlayerButton" :onclick "eww open --toggle media-player_Window && eww update force_show_bar='true' && eww open hideBar_Window"
+                 (button :class "bar_mediaPlayerButton" :onclick "eww open --toggle media-player_Window && eww update force_show_bar='true' && eww open hideBar_Window "
                          (label :text "")))))
 (defwidget bar_audioControl[]
   (box :orientation "horizontal"
        :class "bar_audioControl"
        :halign "center"
-       (button :class "bar_audioControlButton" :onclick "eww open --toggle audio-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text "${bar_audioControlIcon}"))))
+       (button :class "bar_audioControlButton" :onclick "eww update force_show_bar='true' && eww open hideBar_Window &&  eww open --toggle audio-control_Window" (label :text "${bar_audioControlIcon}"))))
 (defwidget bar_bluetoothControl[]
   (box :orientation "horizontal"
        :class "bar_bluetoothControl"
        :halign "center"
-       (button :class "bar_bluetoothControlButton" :onclick "eww open --toggle bluetooth-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text "${bar_bluetoothIcon}"))))
+       (button :class "bar_bluetoothControlButton" :onclick "eww open --toggle bluetooth-control_Window && eww update force_show_bar='true' && eww open hideBar_Window && eww close bluetooth-control_device_Window && eww close bluetooth-control_device_Window" (label :text "${bar_bluetoothIcon}"))))
 (defwidget bar_networkControl[]
   (box :orientation "horizontal"
        :class "bar_networkControl"
