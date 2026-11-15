@@ -2,34 +2,37 @@
   (box :orientation "vertical"
        :class "network-control_mainWidget"
        :space-evenly false
-       :halign "end"
+       :halign "center"
+       :hexpand true
        (network-control_topPanel)
        (network-control_networkBox)))
 
 (defwidget network-control_topPanel[]
   (box :orientation "horizontal"
-       :space-evenly false
-       :halign "center"
+       :space-evenly true
+       :halign "fill"
+       :hexpand true
        :class "network-control_topPanel"
        (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh select_known_network ${network-control_knownControlWidgetReavealer} ${network-control_currentNetwork[0].ssid}" (label :text "${network-control_currentNetwork[0].ssid}"))
        (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_power" (label :class "network-control_text" :text "${network-control_onOffButton}")) 
-       (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_scan" (label :class "network-control_text" :text "${network-control_scanButton}"))
-       (button :class "network-control_controlButton" :onclick "eww close network-control_Window" (label :text ""))))
+       (button :class "network-control_controlButton" :onclick "./scripts/network-control.sh toggle_scan" (label :class "network-control_text" :text "${network-control_scanButton}"))))
 
 (defwidget network-control_networkBox[]
   (box :orientation "horizontal"
     :class "network-control_networkBox"
-    :space-evenly false
+    :halign "fill"
+    :space-evenly true
     (network-control_knownNetworks)
     (network-control_unknownNetworks)
-    (revealer :reveal network-control_unknownControlWidgetReavealer
-              :duration "0ms"
-              :visible network-control_unknownControlWidgetReavealer
-              (network-control_unknownControlWidget))
-    (revealer :reveal network-control_knownControlWidgetReavealer
-              :duration "0ms"
-              :visible network-control_knownControlWidgetReavealer
-              (network-control_knownControlWidget))))
+    ;(revealer :reveal network-control_unknownControlWidgetReavealer
+    ;          :duration "0ms"
+             ; :visible network-control_unknownControlWidgetReavealer
+             ; (network-control_unknownControlWidget))
+    ;(revealer :reveal network-control_knownControlWidgetReavealer
+              ;:duration "0ms"
+              ;:visible network-control_knownControlWidgetReavealer
+              ;(network-control_knownControlWidget))
+              ))
 
 (defwidget network-control_knownNetworks[]
   (box :orientation "vertical"
@@ -53,22 +56,24 @@
 
 
 (defwidget network-control_knownControlWidget[] 
-  (box :orientation "vertical" :class "network-control_controlWidget" (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.name}")
+  (box :orientation "vertical" :class "network-control_controlWidget" (label :class "network-control_controlWidgetText" :text "${network-control_controlWidgetInfo.name}")
        (box :orientation "horizontal" :halign "start" :hexpand false 
             (button :onclick "./scripts/network-control.sh ${network-control_controlWidgetInfo.command} ${network-control_controlWidgetInfo.name}" :timeout "5s"
                     (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.buttonlabel}"))
             (button :onclick "./scripts/network-control.sh forget_network ${network-control_controlWidgetInfo.name}"
                     (label :class "network-control_controlPanelText" :text "forget network")))
-            (button :class "network-control_button" :onclick "eww update network-control_knownControlWidgetReavealer='false'" (label :text ""))))
+            (button :class "network-control_exitButton" :onclick "eww close network-control_known_Window && eww update network-control_knownControlWidgetReavealer='false'" (label :class "network-control_exitButtonText" :text ""))))
 
 
 (defwidget network-control_unknownControlWidget[]
-  (box :orientation "vertical" :halign "start" :hexpand false
-    (label :class "network-control_controlPanelText" :text "${network-control_controlWidgetInfo.name}")
-    (label :class "network-control_controlPanelText" :text "security; ${network-control_controlWidgetInfo.security}") 
-  (label :text "signal strength; ${network-control_controlWidgetInfo.signal}%")
+  (box :orientation "vertical" :halign "start" :hexpand false :class "network-control_controlWidget"
+    (label :class "network-control_controlWidgetText" :text "${network-control_controlWidgetInfo.name}")
+    (label :class "network-control_controlPanelText" :text "Security: ${network-control_controlWidgetInfo.security}") 
+  (label :text "Signal strength: ${network-control_controlWidgetInfo.signal}%")
+  (box :class "network-control_passwordBox" :orientation "horizontal" :space-evenly false :halign "center" :hexpand true
       (input :value ""
-           :password false
-           :onaccept "./scripts/network-control.sh connect_unknown ${network-control_controlWidgetInfo.name} {} ${network-control_controlWidgetInfo.security}") ;If enter is hit twice, there will be two connections, TODO fix this in the script
+           :password network-control_passwordVisible :class "network-control_textBox"
+           :onaccept "./scripts/network-control.sh connect_unknown ${network-control_controlWidgetInfo.name} {} ${network-control_controlWidgetInfo.security}") ;If enter is hit twice, there will be two connections, TODO fix this in the script)
+      (button :class "network-control_visibleButton" :onclick "eww update network-control_passwordVisible=${'${network-control_passwordVisible}' ? false : true}" (label :text "${'${network-control_passwordVisible}' ? '󰈉' : '󰈈'}")))
       (label :class "network-control_controlPanelText" :text "Password, enter to connect")
-      (button :class "network-control_button" :onclick "eww update network-control_unknownControlWidgetReavealer='false'" (label :text ""))))
+      (button :class "network-control_exitButton" :onclick "eww close network-control_unknown_Window && eww update network-control_unknownControlWidgetReavealer='false'" (label :class "network-control_exitButtonText" :text ""))))

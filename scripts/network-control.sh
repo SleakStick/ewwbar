@@ -38,9 +38,8 @@ select_known_network() {
     --arg c "$COMMAND" \
     '{name: $n, buttonlabel: $b, command: $c}')
   eww update network-control_controlWidgetInfo="$CONTROL_WIDGET_INFO"
-  eww update network-control_controlWidgetReavealer="true"
-  eww update network-control_knownControlWidgetReavealer="true"
-  eww update network-control_unknownControlWidgetReavealer="false"
+  eww open network-control_known_Window 
+  eww close network-control_unknown_Window
 
 }
 
@@ -67,9 +66,8 @@ select_unknown_network() {
     --arg e "$SIGNAL" \
     '{name: $n, buttonlabel: $b, command: $c, security: $d, signal: $e}')
   eww update network-control_controlWidgetInfo="$CONTROL_WIDGET_INFO"
-  eww update network-control_controlWidgetReavealer="true"
-  eww update network-control_unknownControlWidgetReavealer="true"
-  eww update network-control_knownControlWidgetReavealer="false"
+  eww close network-control_known_Window
+  eww open network-control_unknown_Window
   #echo $CONTROL_WIDGET_INFO
   #echo $(eww get network-control_controlWidgetInfo)
 }
