@@ -9,7 +9,8 @@ $dark-color: #4c4c4c;
 $border-radius: 15px;
 $opacity: 0.6;
 $green: #4c804c;
-$red: #924c4c; 
+$red: #b23333; 
+$light-red: #fd8080; 
 $line-color: rgb(102, 102, 102, 0.5);
 $hover-color:rgb(102, 102, 102, 0.7);
 $island-pad-thickness: 3px;
@@ -64,8 +65,8 @@ $island-pad-thickness: 3px;
 .bar_powerProfileSwitcher{
   all: unset;
   border-radius: $border-radius;
-  padding-left: 8px;
-  padding-right: 11px;
+  padding-left: 4px;
+  padding-right: 16px;
 }
 .bar_powerProfileSwitcher:hover{
   background-color: $hover-color;
@@ -74,6 +75,7 @@ $island-pad-thickness: 3px;
 .bar_batteryPercentageText {
 }
 .bar_clockModule {
+  margin-left: 4px;
 }
 .bar_infoCenterButton {
   border-radius: $border-radius;
@@ -226,6 +228,8 @@ $island-pad-thickness: 3px;
 .media-player_titleBox {
   padding-bottom: 15px;
 }
+
+
 .slider-vertical {
   min-height: 100px;
   background: transparent;
@@ -361,6 +365,22 @@ $island-pad-thickness: 3px;
 .bluetooth-control_buttonText {
   font-size: 12px;
 }
+.bluetooth-control_exitButton {
+  border-radius: $border-radius;
+  padding-left: 10px;
+  padding-right:14px;
+  padding-top: 2px;
+}
+.bluetooth-control_exitButton label{
+  color: $red;
+}
+.bluetooth-control_exitButton:hover label{
+  color: $light-red;
+}
+.bluetooth-control_button:hover {
+  color: $light-red;
+}
+
 .bluetooth-control_headerButton {
   border-radius: $border-radius;
   padding-left: 10px;
@@ -410,10 +430,15 @@ $island-pad-thickness: 3px;
 
 
 
+
 .network-control_mainWidget {
-  background: $base-color;
+  background: $line-color;
   padding: 10px;
   border: $border-thickness solid $border-color;
+}
+.network-control_topPanel {
+  background: $contrast-color-dark;
+  padding:10px;
 }
 
 .network-control_controlButton {
@@ -423,7 +448,7 @@ $island-pad-thickness: 3px;
   border: 1px solid rgba(0,0,0,0);
 }
 .network-control_controlButton:hover {
-  background-color: $hover-color;
+  background-color: $contrast-color-light;
   border: $border-thickness solid $border-color;
 }
 .network-control_button {
@@ -442,6 +467,10 @@ $island-pad-thickness: 3px;
   border-radius: $border-radius;
   border-bottom: $border-thickness solid $border-color;
 }
+.network-control_networkBox {
+  background-color: $base-color;
+}
+
 .network-control_knownNetworksBox {
   padding-right: 10px;
   border-radius: $border-radius;
@@ -455,6 +484,95 @@ $island-pad-thickness: 3px;
   padding-right: 10px;
   margin-left: 10px;
   border-radius: $border-radius;
+  background-color: $line-color;
   border-left: $border-thickness solid $border-color;
 }
+.network-control_controlWidgetText {
+  background-color: $contrast-color-dark;
+}
+.network-control_exitButton {
+  border-radius: $border-radius;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.network-control_exitButton label{
+  color: $red;
+}
+.network-control_exitButton:hover label{
+  color: $light-red;
+}
+.network-control_visibleButton {
+  border-radius: $border-radius;
+  margin-left: 15px;
+}
+.network-control_passwordBox{
+  padding-top: 8px;
+  padding-bottom:8px;
+}
+.network-control_visibleButton:hover {
+  background-color: $hover-color;
+}
+.network-control_textBox {
+  background-color: $base-color; 
+  color: $bright-color;                          
+  margin-right: 5px;
+  border-radius: $border-radius;                      
+  box-shadow: none;                      
+  transition: all 0.2s ease;            
+}
 
+.network-control_textBox:hover {
+  background-color: $contrast-color-light;
+}
+
+.network-control_textBox:focus {
+  border-color: $border-color;                   
+  background-color: $contrast-color-dark;
+  box-shadow: 0 0 5px $base-color;
+}
+
+
+.powerprofile-slider {
+  min-width: 70px; 
+  background: transparent;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom:4px;
+  padding-top: 7px;
+
+
+  trough {
+    background-color: $contrast-color-dark;
+    border-radius: $border-radius;
+    min-height: 8px;
+    highlight, progress {
+      background-color: $contrast-color-light;
+      border-radius: $border-radius;
+      min-height: 8px;
+    }
+  }
+  slider {
+    min-width: 12px;
+    min-height: 12px;
+    background-color: white;
+    border-radius: $border-radius;
+  }
+  value {
+  }
+}
+.powerprofile_mainBox {
+  background-color: $line-color;
+}
+.powerprofile_powerSaverText label{
+  color: $contrast-color-light;
+}
+.powerprofile_balancedText label{
+  color: $bright-color;
+}
+.powerprofile_performanceText label{
+  color: $light-red;
+}
+.powerprofile_indicatorBox {
+  margin-top:3px;
+  margin-bottom: 8px;
+}

@@ -26,7 +26,7 @@
        :class "bar_batteryModule"
        :halign "start"
        (label :halign "start" :class "bar_batteryPercentageText" :text "${bar_batteryInfo[0].percentage}%")
-       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "./scripts/power-profiles-switcher.sh && eww update force_show_bar='true' && eww open hideBar_Window" :timeout "1000ms"
+       (button :halign "start" :class "bar_powerProfileSwitcher" :onclick "eww open --toggle powerprofile_Window && eww update force_show_bar='true' && eww open hideBar_Window" :timeout "1000ms"
                (label :text "${bar_batteryInfo[0].power_profile_icon}"))))
 (defwidget bar_clockModule[]
   (box :orientation "horizontal"
@@ -70,7 +70,7 @@
   (box :orientation "horizontal"
        :class "bar_networkControl"
        :halign "center"
-       (button :class "bar_networkControlButton" :onclick "eww open --toggle network-control_Window && eww update force_show_bar='true' && eww open hideBar_Window" (label :text ""))))
+       (button :class "bar_networkControlButton" :onclick "eww open --toggle network-control_Window && eww update force_show_bar='true' && eww open hideBar_Window && eww close network-control_unknown_Window network-control_known_Window" (label :text ""))))
 
 
 

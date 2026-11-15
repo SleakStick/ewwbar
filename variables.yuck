@@ -17,6 +17,7 @@
 (defpoll bar_batteryInfo :interval "10s" :initial '[{"err":"err"}]'
   "./scripts/battery-info.sh")
 (defvar bar_power-profiles-order '[{"power-saver":"balanced", "balanced":"performance", "performance":"power-saver"}]')
+(defpoll powerprofile :interval "1s" "./scripts/power-profiles-switcher.sh poll")
 
 (defpoll time :interval "1s"
   'date +%H:%M:%S')
@@ -37,6 +38,7 @@
 (defvar bluetooth-control_selectedDevice "{}")
 (defvar bluetooth-control_device_menu_button "Connect")
 
+(defvar network-control_passwordVisible false)
 (defpoll network-control_knownNetworks :interval "24h" :initial '["err"]'
   "./scripts/network-control.sh known_networks")
 (defpoll network-control_unknownNetworks :interval "24h" :initial '["err"]'
@@ -59,5 +61,3 @@
   "./scripts/system-control.sh sysinfo")
 (defvar system-control_inhibit-sleep false)
 
-(defvar backgroundColor "#33adcc")
-(defvar accentColor "#33adcc")
