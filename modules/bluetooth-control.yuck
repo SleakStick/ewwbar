@@ -49,7 +49,7 @@
     (button :class "bluetooth-control_button"
             :onclick "exec ./scripts/bluetooth-control.sh -m '${device}' -f && eww close bluetooth-control_device_Window"
             "Forget"))
-    (button :class "bluetooth-control_button" 
+    (button :class "bluetooth-control_exitButton" 
             :onclick "eww close bluetooth-control_device_Window" 
-            "")))
+            "")))
 
